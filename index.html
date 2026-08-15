@@ -502,12 +502,29 @@
     *{transition:none !important;}
   }
 </style>
+
+<!-- ============================================================
+     ANALYTICS SETUP — Google Analytics (GA4)
+     1. Go to analytics.google.com and create a free account
+     2. Create a GA4 "Property" for gearscout.com (or your domain)
+     3. It gives you a Measurement ID that looks like: G-ABC123XYZ
+     4. Replace BOTH instances of "G-XXXXXXXXXX" below with that ID
+     Until you do this, these lines are inactive and track nothing.
+     ============================================================ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
 </head>
 <body>
 
 <header>
   <div class="nav wrap">
-    <a href="#top" class="logo"><img src="assets/icon.png" alt="" class="mark-img">GearScout</a>
+    <a href="#top" class="logo"><img src="icon.png" alt="" class="mark-img">GearScout</a>
     <nav class="links">
       <a href="#categories">Categories</a>
       <a href="#picks">Scout's Picks</a>
@@ -1687,7 +1704,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/logo-full.png" alt="GearScout, discover what's next" class="footer-logo-img">
+        <img src="logo-full.png" alt="GearScout, discover what's next" class="footer-logo-img">
         <p style="font-size:0.85rem; max-width:280px; color:#8C8A83;">Independent tech &amp; gadget scouting. We research, compare, and point you to the best listing — you decide.</p>
       </div>
       <div>
@@ -1717,7 +1734,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span class="foot-logo" style="display:flex;align-items:center;gap:8px;"><img src="assets/icon.png" alt="" style="width:20px;height:20px;">GearScout</span>
+      <span class="foot-logo" style="display:flex;align-items:center;gap:8px;"><img src="icon.png" alt="" style="width:20px;height:20px;">GearScout</span>
       <span>© 2026 GearScout. Prices and availability subject to change.</span>
     </div>
   </div>
@@ -2106,7 +2123,20 @@
       const link = e.target.closest('a.card-media, a.buy-btn');
       if (!link) return;
       const card = e.target.closest('.card');
-      if (card) recordView(card.id);
+      if (card){
+        recordView(card.id);
+        const nameEl = card.querySelector('h3');
+        const priceEl = card.querySelector('.price');
+        if (typeof gtag === 'function'){
+          gtag('event', 'amazon_click', {
+            product_id: card.id,
+            product_name: nameEl ? nameEl.textContent : '',
+            product_category: card.dataset.category,
+            product_price: priceEl ? priceEl.textContent : '',
+            link_type: link.classList.contains('buy-btn') ? 'buy_button' : 'product_image'
+          });
+        }
+      }
     });
   }
 
