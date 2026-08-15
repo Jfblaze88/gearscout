@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GearScout — Tech &amp; Gadgets, Scouted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0B0C;
+    --bg-soft: #17181B;
+    --paper: #FAF9F6;
+    --paper-dim: #F0EEE8;
+    --ink: #17181B;
+    --ink-dim: #5B5D63;
+    --orange: #FF6A1A;
+    --orange-deep: #E04E00;
+    --line: #E4E1D8;
+    --line-dark: #2A2B2F;
+    --radius: 3px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:3px solid var(--orange); outline-offset:2px;}
+
+  /* ---------- header ---------- */
+  header{
+    background: var(--bg);
+    color: #F4F2EC;
+    position: sticky; top:0; z-index: 50;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 24px; gap: 24px;
+    position:relative;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--display); font-weight:700; font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color:#fff;
+  }
+  .logo .mark-img{
+    width: 32px; height:32px; object-fit:contain; flex-shrink:0;
+  }
+  nav.links{display:flex; gap:28px; font-size:0.92rem; font-weight:500;}
+  nav.links a{color:#C9C7C0; transition: color .15s;}
+  nav.links a#nav-favorites.active{color: var(--orange);}
+  .fav-count{
+    font-family: var(--mono); font-size:0.72rem; color: var(--orange);
+    margin-left:4px;
+  }
+  nav.links a:hover{color:#fff;}
+  .nav-cta{
+    font-family: var(--mono); font-size:0.78rem; font-weight:600;
+    background: var(--orange); color:#141414;
+    padding:9px 16px; border-radius: var(--radius);
+    letter-spacing: 0.03em;
+  }
+  .mobile-toggle{display:none; background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;}
+
+  /* ---------- search bar ---------- */
+  .search-bar{
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line-dark);
+    padding: 14px 0;
+  }
+  .search-inner{
+    display:flex; align-items:center; gap:12px;
+    background: #212226; border: 1px solid var(--line-dark); border-radius: var(--radius);
+    padding: 11px 16px;
+    transition: border-color .15s;
+  }
+  .search-inner:focus-within{border-color: var(--orange);}
+  .search-icon{width:18px; height:18px; color:#8C8A83; flex-shrink:0;}
+  #search-input{
+    flex:1; background:none; border:none; outline:none;
+    font-family: var(--body); font-size:0.92rem; color:#F4F2EC;
+  }
+  #search-input::placeholder{color:#6E6C66;}
+  .search-clear{
+    background:none; border:none; color:#8C8A83; cursor:pointer;
+    font-size:0.9rem; padding:2px 4px; flex-shrink:0;
+  }
+  .search-clear:hover{color:#fff;}
+  .search-status{
+    font-family: var(--mono); font-size:0.78rem; color: var(--orange);
+    margin-top:10px; min-height: 1em;
+  }
+  .card.hidden{display:none;}
+  .card.entering{animation: card-fade-in 0.35s ease both;}
+  @keyframes card-fade-in{
+    0%{ opacity:0; transform: translateY(8px); }
+    100%{ opacity:1; transform: translateY(0); }
+  }
+  .no-results{
+    grid-column: 1/-1; text-align:center; padding: 48px 20px;
+    color: var(--ink-dim); font-size:0.95rem; display:none;
+  }
+  .no-results.show{display:block;}
+  .load-more-wrap{
+    display:none; justify-content:center; margin-top:36px;
+  }
+  .btn-load-more{
+    background:#fff; border:1px solid var(--line); color: var(--ink);
+    font-family: var(--body); font-weight:600; font-size:0.92rem;
+    padding:13px 28px; border-radius: var(--radius); cursor:pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .btn-load-more:hover{border-color: var(--orange); color: var(--orange-deep);}
+
+  /* ---------- what's new ---------- */
+  .whats-new{
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 22px 0;
+  }
+  .whats-new-head{margin-bottom:14px;}
+  .whats-new-label{
+    font-family: var(--mono); font-size:0.78rem; font-weight:600;
+    color: var(--orange-deep); letter-spacing:0.04em;
+  }
+  .recently-viewed{background: var(--paper-dim); border-bottom:1px solid var(--line); padding:22px 0;}
+  .rv-label{color: var(--ink-dim);}
+  .whats-new-row{
+    display:flex; gap:14px; overflow-x:auto; padding-bottom:4px;
+    scrollbar-width: thin;
+  }
+  .wn-card{
+    flex-shrink:0; width:130px;
+    display:flex; flex-direction:column; gap:6px;
+    border:1px solid var(--line); border-radius:6px; padding:10px;
+    background:#fff; transition: box-shadow .15s, transform .15s;
+  }
+  .wn-card:hover{box-shadow:0 8px 18px rgba(20,20,20,0.08); transform: translateY(-2px);}
+  .wn-card img{
+    width:100%; aspect-ratio:1; object-fit:contain; background: var(--paper-dim);
+    border-radius:4px;
+  }
+  .wn-name{
+    font-family: var(--body); font-weight:600; font-size:0.78rem; color: var(--ink);
+    line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .wn-price{font-family: var(--mono); font-size:0.75rem; color: var(--ink-dim);}
+
+  /* ---------- product finder quiz ---------- */
+  .quiz-section{background: var(--paper-dim); padding: 32px 0; border-bottom:1px solid var(--line);}
+  .quiz-box{
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding: 28px 30px;
+  }
+  .quiz-head h3{font-family: var(--display); font-size:1.25rem; margin-bottom:4px;}
+  .quiz-head p{color: var(--ink-dim); font-size:0.88rem; margin-bottom:20px;}
+  .quiz-step{margin-bottom:18px;}
+  .quiz-step-label{
+    display:block; font-family: var(--body); font-weight:600; font-size:0.85rem;
+    color: var(--ink); margin-bottom:10px;
+  }
+  .quiz-btn-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .quiz-btn{
+    font-family: var(--body); font-weight:500; font-size:0.82rem;
+    background: var(--paper-dim); border:1px solid var(--line); color: var(--ink);
+    padding:8px 14px; border-radius:999px; cursor:pointer;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .quiz-btn:hover{border-color: var(--orange);}
+  .quiz-btn.active{background: var(--orange); border-color: var(--orange); color:#141414; font-weight:600;}
+  .quiz-results{margin-top:8px;}
+  .quiz-results-head{
+    font-family: var(--mono); font-size:0.78rem; color: var(--orange-deep);
+    margin-bottom:12px; font-weight:600;
+  }
+  .quiz-results-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .quiz-empty{color: var(--ink-dim); font-size:0.88rem;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background: var(--bg);
+    color:#F4F2EC;
+    padding: 72px 0 96px;
+    position: relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right: -8%; top: -20%;
+    width: 520px; height:520px;
+    border-radius:50%;
+    border: 1px dashed rgba(255,106,26,0.35);
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right: 4%; top: 8%;
+    width: 320px; height:320px;
+    border-radius:50%;
+    border: 1px dashed rgba(255,106,26,0.2);
+  }
+  .hero-inner{max-width: 640px; position:relative; z-index:2;}
+  .eyebrow{
+    font-family: var(--mono); font-size:0.78rem; color: var(--orange);
+    letter-spacing:0.08em; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:"◎"; font-size:1rem;}
+  h1{
+    font-family: var(--display); font-weight:700;
+    font-size: clamp(2.3rem, 5vw, 3.6rem);
+    line-height:1.06; letter-spacing:-0.02em;
+    margin-bottom:20px;
+  }
+  h1 em{font-style:normal; color: var(--orange);}
+  .hero p{
+    font-size:1.08rem; color:#B9B7B0; max-width: 480px; margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family: var(--body); font-weight:600; font-size:0.95rem;
+    padding: 13px 24px; border-radius: var(--radius);
+    border: 1px solid transparent; cursor:pointer;
+    background: none;
+    transition: transform .12s ease, background .15s;
+  }
+  .btn:hover{transform: translateY(-1px);}
+  .btn-primary{background: var(--orange); color:#141414;}
+  .btn-primary:hover{background:#ff7a33;}
+  .btn-ghost{background:transparent; border-color: rgba(255,255,255,0.28); color:#F4F2EC; font-family: inherit;}
+  .btn-ghost:hover{border-color:#fff;}
+
+  /* ---------- category chip bar (sticky) ---------- */
+  .categories{
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line-dark);
+    position: sticky;
+    top: 64px;
+    z-index: 45;
+  }
+  .cat-chip-row{
+    display:flex; gap:8px; align-items:center;
+    overflow-x:auto; white-space:nowrap;
+    padding: 10px 0;
+    scrollbar-width: thin;
+  }
+  .cat-chip-row::-webkit-scrollbar{height:4px;}
+  .cat-chip-row::-webkit-scrollbar-thumb{background:#3A3B40; border-radius:4px;}
+  .cat-chip{
+    flex-shrink:0;
+    display:inline-flex; align-items:center; gap:6px;
+    font-family: var(--body); font-weight:600; font-size:0.82rem;
+    color:#D8D6CF;
+    background:#212226; border:1px solid var(--line-dark);
+    padding:8px 14px; border-radius:999px;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .cat-chip:hover{border-color: var(--orange); color:#fff;}
+  .cat-chip.active{
+    background: var(--orange); border-color: var(--orange); color:#141414;
+  }
+  .cat-chip .count{
+    font-family: var(--mono); font-size:0.7rem; opacity:0.75;
+  }
+
+  /* ---------- section heads ---------- */
+  .section{padding: 72px 0;}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom: 40px; gap:20px; flex-wrap:wrap;
+    border-bottom: 2px solid var(--ink); padding-bottom:16px;
+  }
+  .section-head h2{
+    font-family: var(--display); font-weight:700; font-size:1.7rem;
+    letter-spacing:-0.01em;
+  }
+  .section-head .tag{
+    font-family: var(--mono); font-size:0.78rem; color: var(--orange-deep);
+    background: #FFF0E6; padding:5px 10px; border-radius: var(--radius);
+    font-weight:600;
+  }
+  .head-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .sort-select{
+    font-family: var(--body); font-weight:500; font-size:0.85rem;
+    color: var(--ink); background:#fff;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 8px 12px; cursor:pointer;
+  }
+  .sort-select:focus{border-color: var(--orange);}
+
+  /* ---------- bundles ---------- */
+  .bundles-section{background: var(--paper-dim); padding-bottom: 80px;}
+  .bundle-grid{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:22px;}
+  .bundle-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:24px;
+  }
+  .bundle-card h3{font-family: var(--display); font-size:1.1rem; margin-bottom:8px;}
+  .bundle-desc{color: var(--ink-dim); font-size:0.87rem; line-height:1.5; margin-bottom:18px;}
+  .bundle-items{list-style:none;}
+  .bundle-items li{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:9px 0; border-top:1px dashed var(--line); font-size:0.85rem;
+  }
+  .bundle-items li:first-child{border-top:none;}
+  .bundle-items a{color: var(--ink); font-weight:500;}
+  .bundle-items a:hover{color: var(--orange-deep);}
+  .bundle-items span{font-family: var(--mono); font-size:0.78rem; color: var(--ink-dim);}
+
+  /* ---------- product grid ---------- */
+  .grid{
+    display:grid; grid-template-columns: repeat(6, 1fr); gap:12px;
+  }
+  .card{
+    border:1px solid var(--line); border-radius: 5px;
+    background:#fff; overflow:hidden;
+    display:flex; flex-direction:column;
+    position: relative;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .card:hover{box-shadow: 0 8px 18px rgba(20,20,20,0.08); transform: translateY(-2px);}
+  .fav-btn{
+    position:absolute; top:6px; right:6px; z-index:15;
+    width:22px; height:22px; border-radius:50%;
+    background:rgba(255,255,255,0.92); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.82rem; color:#8A8A8A; cursor:pointer;
+    transition: background .15s, color .15s, transform .1s;
+  }
+  .fav-btn:hover{transform:scale(1.08);}
+  .fav-btn.active{color: var(--orange-deep); border-color: var(--orange);}
+  .fav-btn.pop{animation: fav-pop 0.4s ease;}
+  @keyframes fav-pop{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.35);}
+    60%{transform:scale(0.92);}
+    100%{transform:scale(1);}
+  }
+  .confetti-particle{
+    position:absolute; z-index:20; pointer-events:none;
+    width:5px; height:5px; border-radius:50%;
+    background: var(--orange);
+    animation: confetti-burst 0.6s ease-out forwards;
+  }
+  @keyframes confetti-burst{
+    0%{ transform: translate(0,0) scale(1); opacity:1; }
+    100%{ transform: var(--confetti-end) scale(0.4); opacity:0; }
+  }
+  .card.highlight{
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(255,106,26,0.25), 0 12px 28px rgba(20,20,20,0.1);
+    animation: pulse-highlight 1.8s ease-in-out 2;
+  }
+  @keyframes pulse-highlight{
+    0%, 100%{ box-shadow: 0 0 0 3px rgba(255,106,26,0.25), 0 12px 28px rgba(20,20,20,0.1); }
+    50%{ box-shadow: 0 0 0 6px rgba(255,106,26,0.15), 0 12px 28px rgba(20,20,20,0.1); }
+  }
+  .card-media{
+    aspect-ratio: 4/3; background: linear-gradient(135deg, #1E1F23, #34363C);
+    position:relative; display:flex; align-items:center; justify-content:center;
+  }
+  .card-media.has-img{background:#fff;}
+  .card-media.has-img img{
+    width:100%; height:100%; object-fit:contain; padding: 10px;
+  }
+  a.card-media{display:flex; text-decoration:none;}
+  a.card-media.img-link:hover img{opacity:0.85;}
+  .card-media .glyph{font-size:1.6rem; opacity:0.85;}
+  .badge{
+    position:absolute; top:6px; left:6px;
+    font-family: var(--mono); font-size:0.56rem; font-weight:600;
+    background: var(--orange); color:#141414;
+    padding:2px 6px; border-radius: var(--radius); letter-spacing:0.02em;
+  }
+  .card-body{padding:10px; display:flex; flex-direction:column; gap:6px; flex:1;}
+  .card-body h3{
+    font-family: var(--display); font-size:0.82rem; font-weight:600; line-height:1.25;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .card-body .take{
+    color: var(--ink-dim); font-size:0.72rem; line-height:1.4;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .specs{display:flex; flex-wrap:wrap; gap:3px;}
+  .spec-pill{
+    font-family: var(--mono); font-size:0.58rem; font-weight:500;
+    background: var(--paper-dim); border:1px solid var(--line);
+    padding:2px 5px; border-radius: var(--radius); color: var(--ink-dim);
+  }
+  .card-foot{
+    margin-top:auto; display:flex; align-items:center; justify-content:space-between;
+    padding-top:8px; border-top:1px dashed var(--line);
+  }
+  .price{font-family: var(--display); font-weight:700; font-size:0.88rem;}
+  .price.tbd{font-family: var(--mono); font-weight:600; font-size:0.62rem; color: var(--ink-dim);}
+  .price .was{
+    font-family: var(--body); font-weight:400; font-size:0.65rem;
+    color: var(--ink-dim); text-decoration: line-through; margin-right:4px;
+  }
+  .buy-btn{
+    font-family: var(--body); font-weight:600; font-size:0.68rem;
+    background: var(--ink); color:#fff; padding:6px 10px;
+    border-radius: var(--radius); display:inline-flex; align-items:center; gap:4px;
+    transition: background .15s;
+  }
+  .buy-btn:hover{background: var(--orange-deep);}
+  .buy-btn svg{width:11px; height:11px;}
+
+  /* ---------- disclosure ---------- */
+  .disclosure{
+    background: var(--bg-soft); color:#D8D6CF;
+    padding: 40px 0; border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);
+  }
+  .disclosure .wrap{display:flex; gap:20px; align-items:flex-start;}
+  .disclosure .mark{
+    font-family: var(--mono); font-size:0.75rem; color: var(--orange);
+    border: 1px solid rgba(255,106,26,0.4); padding:6px 10px; border-radius: var(--radius);
+    flex-shrink:0; letter-spacing:0.04em;
+  }
+  .disclosure p{font-size:0.88rem; line-height:1.6; color:#B9B7B0; max-width:760px;}
+
+  /* ---------- category CTA banner ---------- */
+  .newsletter{
+    background: var(--paper-dim);
+    padding: 56px 0;
+  }
+  .cta-banner{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:28px; flex-wrap:wrap;
+    background: var(--ink); color:#F4F2EC;
+    border-radius:6px; padding: 32px 40px;
+  }
+  .cta-banner h3{font-family: var(--display); font-size:1.25rem; margin-bottom:6px;}
+  .cta-banner p{color:#B9B7B0; font-size:0.9rem;}
+  .cta-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .cta-link{
+    font-family: var(--body); font-weight:600; font-size:0.85rem;
+    border: 1px solid rgba(255,255,255,0.25); color:#F4F2EC;
+    padding: 9px 16px; border-radius: var(--radius);
+    transition: background .15s, border-color .15s;
+  }
+  .cta-link:hover{background: var(--orange); border-color: var(--orange); color:#141414;}
+
+  /* ---------- footer ---------- */
+  footer{background: var(--bg); color:#8C8A83; padding: 48px 0 32px;}
+  .foot-grid{
+    display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:32px;
+    padding-bottom:32px; border-bottom:1px solid var(--line-dark); margin-bottom:24px;
+  }
+  .foot-grid h4{font-family: var(--display); color:#F4F2EC; font-size:0.85rem; margin-bottom:14px; letter-spacing:0.03em;}
+  .footer-logo-img{width: 170px; max-width:100%; margin-bottom:16px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{margin-bottom:9px; font-size:0.85rem;}
+  .foot-grid a:hover{color:#F4F2EC;}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.78rem; flex-wrap:wrap; gap:10px;
+  }
+  .foot-logo{font-family:var(--display); font-weight:700; color:#F4F2EC;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1400px){
+    .grid{grid-template-columns: repeat(5, 1fr);}
+  }
+  @media (max-width: 1180px){
+    .grid{grid-template-columns: repeat(4, 1fr);}
+  }
+  @media (max-width: 860px){
+    nav.links{
+      display:none;
+      position:absolute; top:100%; left:0; right:0;
+      background: var(--bg); border-bottom:1px solid var(--line-dark);
+      flex-direction:column; gap:0; padding:8px 0;
+      box-shadow:0 8px 16px rgba(0,0,0,0.25);
+    }
+    nav.links.mobile-open{display:flex;}
+    nav.links a{padding:12px 24px; border-bottom:1px solid rgba(255,255,255,0.06);}
+    .mobile-toggle{display:block;}
+    .categories{top:56px;}
+    .grid{grid-template-columns: repeat(3, 1fr);}
+    .bundle-grid{grid-template-columns: 1fr;}
+    .foot-grid{grid-template-columns: 1fr 1fr;}
+    .cta-banner{flex-direction:column; align-items:flex-start;}
+    .disclosure .wrap{flex-direction:column;}
+  }
+  @media (max-width: 560px){
+    .grid{grid-template-columns: repeat(2, 1fr);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <a href="#top" class="logo"><img src="assets/icon.png" alt="" class="mark-img">GearScout</a>
+    <nav class="links">
+      <a href="#categories">Categories</a>
+      <a href="#picks">Scout's Picks</a>
+      <a href="#bundles">Bundles</a>
+      <a href="#about">About</a>
+      <a href="#picks" id="nav-favorites" onclick="showFavoritesOnly(); return true;">♥ My Picks<span id="fav-count" class="fav-count"></span></a>
+    </nav>
+    <a href="#picks" class="nav-cta">SEE TODAY'S PICKS</a>
+    <button class="mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="search-bar">
+  <div class="wrap">
+    <div class="search-inner">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="text" id="search-input" placeholder="Search for a product (e.g. streaming stick, earbuds, charger)..." oninput="filterProducts(this.value)" aria-label="Search products">
+      <button id="search-clear" class="search-clear" onclick="clearSearch()" style="display:none;" aria-label="Clear search">✕</button>
+    </div>
+    <p id="search-status" class="search-status"></p>
+  </div>
+</section>
+
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="eyebrow" id="hero-eyebrow">Field-tested tech</div>
+    <h1>We scout the gear.<br>You skip the <em>guesswork</em>.</h1>
+    <p>GearScout digs through specs, reviews, and real-world use so you don't have to — then points you straight to the exact listing worth buying.</p>
+    <div class="hero-actions">
+      <a href="#picks" class="btn btn-primary">Browse Scout's Picks →</a>
+      <a href="#categories" class="btn btn-ghost">Explore Categories</a>
+      <button class="btn btn-ghost" onclick="surpriseMe()">🎲 Surprise Me</button>
+    </div>
+  </div>
+</section>
+
+<section class="categories" id="categories">
+  <div class="wrap">
+    <div class="cat-chip-row">
+      <a class="cat-chip active" href="#picks" id="cat-chip-all" onclick="filterByCategory(null); return true;">All</a>
+      <a class="cat-chip" href="#picks" data-cat="streaming-tv" onclick="filterByCategory('streaming-tv'); return true;">📺 Streaming &amp; TV<span class="count" data-count-for="streaming-tv"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="audio" onclick="filterByCategory('audio'); return true;">🎧 Audio<span class="count" data-count-for="audio"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="wearables" onclick="filterByCategory('wearables'); return true;">⌚ Wearables<span class="count" data-count-for="wearables"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="smart-home" onclick="filterByCategory('smart-home'); return true;">🏠 Smart Home<span class="count" data-count-for="smart-home"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="computing" onclick="filterByCategory('computing'); return true;">💻 Computing<span class="count" data-count-for="computing"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="charging" onclick="filterByCategory('charging'); return true;">🔌 Charging<span class="count" data-count-for="charging"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="outdoor" onclick="filterByCategory('outdoor'); return true;">🏕️ Outdoor &amp; Camping<span class="count" data-count-for="outdoor"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="cameras" onclick="filterByCategory('cameras'); return true;">📷 Cameras &amp; Photography<span class="count" data-count-for="cameras"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="wellness" onclick="filterByCategory('wellness'); return true;">💆 Health &amp; Wellness<span class="count" data-count-for="wellness"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="kitchen" onclick="filterByCategory('kitchen'); return true;">🍽️ Kitchen &amp; Dining<span class="count" data-count-for="kitchen"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="tools" onclick="filterByCategory('tools'); return true;">🔧 Tools &amp; Hardware<span class="count" data-count-for="tools"></span></a>
+      <a class="cat-chip" href="#picks" data-cat="gaming" onclick="filterByCategory('gaming'); return true;">🎮 Gaming<span class="count" data-count-for="gaming"></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="whats-new">
+  <div class="wrap">
+    <div class="whats-new-head">
+      <span class="whats-new-label">✦ Just Added</span>
+    </div>
+    <div class="whats-new-row">
+      <a href="#tikom-g8000-robot-vacuum" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/71lOhFFaWuL._AC_SL1500_.jpg" alt="Tikom G8000 Robot Vacuum">
+        <span class="wn-name">Tikom G8000 Robot Vacuum</span>
+        <span class="wn-price">$149.99</span>
+      </a>
+      <a href="#redtiger-f7n-dashcam" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/716yL7ENIjL._AC_SL1500_.jpg" alt="REDTIGER 4K Dashcam">
+        <span class="wn-name">REDTIGER 4K Dashcam</span>
+        <span class="wn-price">$169.99</span>
+      </a>
+      <a href="#aoc-wireless-gaming-headset" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/71IbmKSmsuL._AC_SL1500_.jpg" alt="AOC Wireless Gaming Headset">
+        <span class="wn-name">AOC Gaming Headset</span>
+        <span class="wn-price">$34.99</span>
+      </a>
+      <a href="#razer-basilisk-v3" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/61AcT0ZuO3L._AC_SL1500_.jpg" alt="Razer Basilisk V3">
+        <span class="wn-name">Razer Basilisk V3</span>
+        <span class="wn-price">$69.99</span>
+      </a>
+      <a href="#lisen-magsafe-car-mount" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/61UdigRz7xL._AC_SL1024_.jpg" alt="LISEN MagSafe Car Mount">
+        <span class="wn-name">LISEN MagSafe Car Mount</span>
+        <span class="wn-price">$32.99</span>
+      </a>
+      <a href="#aula-f75-pro-keyboard" class="wn-card">
+        <img src="https://m.media-amazon.com/images/I/61MC8BK0w0L._AC_SL1500_.jpg" alt="AULA F75 Pro Keyboard">
+        <span class="wn-name">AULA F75 Pro Keyboard</span>
+        <span class="wn-price">$79.99</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="recently-viewed" id="recently-viewed" style="display:none;">
+  <div class="wrap">
+    <div class="whats-new-head">
+      <span class="whats-new-label rv-label">◷ Recently Viewed</span>
+    </div>
+    <div class="whats-new-row" id="recently-viewed-row"></div>
+  </div>
+</section>
+
+<section class="quiz-section" id="finder">
+  <div class="wrap">
+    <div class="quiz-box">
+      <div class="quiz-head">
+        <h3>Not sure where to start?</h3>
+        <p>Answer two quick questions and GearScout will point you at the right pick.</p>
+      </div>
+
+      <div class="quiz-step">
+        <span class="quiz-step-label">1. What are you shopping for?</span>
+        <div class="quiz-btn-row" id="quiz-cat-row">
+          <button class="quiz-btn" data-qcat="streaming-tv" onclick="quizSelectCategory('streaming-tv', this)">📺 Streaming &amp; TV</button>
+          <button class="quiz-btn" data-qcat="audio" onclick="quizSelectCategory('audio', this)">🎧 Audio</button>
+          <button class="quiz-btn" data-qcat="wearables" onclick="quizSelectCategory('wearables', this)">⌚ Wearables</button>
+          <button class="quiz-btn" data-qcat="smart-home" onclick="quizSelectCategory('smart-home', this)">🏠 Smart Home</button>
+          <button class="quiz-btn" data-qcat="computing" onclick="quizSelectCategory('computing', this)">💻 Computing</button>
+          <button class="quiz-btn" data-qcat="charging" onclick="quizSelectCategory('charging', this)">🔌 Charging</button>
+          <button class="quiz-btn" data-qcat="outdoor" onclick="quizSelectCategory('outdoor', this)">🏕️ Outdoors</button>
+          <button class="quiz-btn" data-qcat="cameras" onclick="quizSelectCategory('cameras', this)">📷 Photography</button>
+          <button class="quiz-btn" data-qcat="wellness" onclick="quizSelectCategory('wellness', this)">💆 Wellness</button>
+          <button class="quiz-btn" data-qcat="kitchen" onclick="quizSelectCategory('kitchen', this)">🍽️ Kitchen</button>
+          <button class="quiz-btn" data-qcat="tools" onclick="quizSelectCategory('tools', this)">🔧 Tools</button>
+          <button class="quiz-btn" data-qcat="gaming" onclick="quizSelectCategory('gaming', this)">🎮 Gaming</button>
+        </div>
+      </div>
+
+      <div class="quiz-step">
+        <span class="quiz-step-label">2. What's your budget?</span>
+        <div class="quiz-btn-row" id="quiz-budget-row">
+          <button class="quiz-btn" data-qbudget="under30" onclick="quizSelectBudget('under30', this)">Under $30</button>
+          <button class="quiz-btn" data-qbudget="30to75" onclick="quizSelectBudget('30to75', this)">$30 – $75</button>
+          <button class="quiz-btn" data-qbudget="over75" onclick="quizSelectBudget('over75', this)">$75+</button>
+          <button class="quiz-btn" data-qbudget="any" onclick="quizSelectBudget('any', this)">Any budget</button>
+        </div>
+      </div>
+
+      <div id="quiz-results" class="quiz-results"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="picks">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Scout's Picks</h2>
+      <div class="head-controls">
+        <select id="sort-select" class="sort-select" onchange="applySort(this.value)" aria-label="Sort products">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="newest">Recently Added</option>
+        </select>
+        <span class="tag">HANDPICKED</span>
+      </div>
+    </div>
+    <div class="grid" id="product-grid">
+      <p class="no-results" id="no-results">No products match that search yet — try a different term or browse by category above.</p>
+
+      <div class="card" id="roku-streaming-stick-hd" data-order="1" data-category="streaming-tv" data-name="roku streaming stick hd voice remote">
+        <button class="fav-btn" data-fav-id="roku-streaming-stick-hd" onclick="toggleFavorite('roku-streaming-stick-hd', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4fJxHD8" class="card-media has-img img-link" aria-label="View Roku Streaming Stick HD on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71CBWyQfKhL._AC_SL1500_.jpg" alt="Roku Streaming Stick HD with Voice Remote" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Roku Streaming Stick HD with Voice Remote</h3>
+          <p class="take">A no-fuss way to get free live TV, sports, and news onto any screen — one remote, one login, minutes to set up.</p>
+          <div class="specs">
+            <span class="spec-pill">VOICE REMOTE: YES</span>
+            <span class="spec-pill">WIFI: LONG-RANGE</span>
+            <span class="spec-pill">SETUP: MINUTES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$29.99</div>
+            <a href="https://amzn.to/4fJxHD8" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="amazfit-bip-6" data-order="2" data-category="wearables" data-name="amazfit bip 6 smart watch">
+        <button class="fav-btn" data-fav-id="amazfit-bip-6" onclick="toggleFavorite('amazfit-bip-6', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3Sj55HW" class="card-media has-img img-link" aria-label="View Amazfit Bip 6 Smart Watch on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61UvVTN0IEL._AC_SL1500_.jpg" alt="Amazfit Bip 6 Smart Watch" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Amazfit Bip 6 Smart Watch, 46mm</h3>
+          <p class="take">Most of what a $300 smartwatch does — calls, texts, GPS, sleep tracking — for a fraction of the price, with battery life that actually holds up.</p>
+          <div class="specs">
+            <span class="spec-pill">BATT: 14 DAYS</span>
+            <span class="spec-pill">DISPLAY: 1.97" AMOLED</span>
+            <span class="spec-pill">GPS: YES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$79.99</div>
+            <a href="https://amzn.to/3Sj55HW" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="divoom-minitoo-pixel-speaker" data-order="39" data-category="audio" data-name="divoom minitoo retro pixel computer speaker">
+        <button class="fav-btn" data-fav-id="divoom-minitoo-pixel-speaker" onclick="toggleFavorite('divoom-minitoo-pixel-speaker', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3UnH7M8" class="card-media has-img img-link" aria-label="View Divoom MiniToo Pixel Speaker on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71QrpZYmE9L._AC_SL1500_.jpg" alt="Divoom MiniToo Retro Pixel Speaker" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Divoom MiniToo Pixel Speaker</h3>
+          <p class="take">The pixel screen with DIY faces is the whole appeal — it's a desk speaker that also doubles as an alarm clock and a tiny bit of personality on a monitor stand.</p>
+          <div class="specs">
+            <span class="spec-pill">SCREEN: PIXEL LED</span>
+            <span class="spec-pill">AUDIO: BLUETOOTH+USB</span>
+            <span class="spec-pill">EXTRA: ALARM CLOCK</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.99</div>
+            <a href="https://amzn.to/3UnH7M8" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="eightree-smart-plug" data-order="4" data-category="smart-home" data-name="eightree smart plug 4 pack">
+        <button class="fav-btn" data-fav-id="eightree-smart-plug" onclick="toggleFavorite('eightree-smart-plug', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3RRP0c7" class="card-media has-img img-link" aria-label="View EIGHTREE Smart Plug 4-Pack on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61QebEf4qvL._SL1500_.jpg" alt="EIGHTREE Smart Plug 4-Pack" loading="lazy"></a>
+        <div class="card-body">
+          <h3>EIGHTREE Smart Plug, 4-Pack</h3>
+          <p class="take">No hub to buy or set up — plug in, connect to WiFi, and control everything by voice or app in minutes.</p>
+          <div class="specs">
+            <span class="spec-pill">HUB: NONE</span>
+            <span class="spec-pill">VOICE: ALEXA/GOOGLE</span>
+            <span class="spec-pill">PACK: 4</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$24.99</div>
+            <a href="https://amzn.to/3RRP0c7" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="ugreen-usb-c-hub" data-order="5" data-category="computing" data-name="ugreen usb c hub revodok 7 in 1">
+        <button class="fav-btn" data-fav-id="ugreen-usb-c-hub" onclick="toggleFavorite('ugreen-usb-c-hub', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4hmP7GS" class="card-media has-img img-link" aria-label="View UGREEN USB-C Hub Revodok 7-in-1 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71+xUr8fyzL._AC_SL1500_.jpg" alt="UGREEN USB-C Hub Revodok 7-in-1" loading="lazy"></a>
+        <div class="card-body">
+          <h3>UGREEN Revodok 7-in-1 USB-C Hub</h3>
+          <p class="take">Turns one USB-C port into a full workstation — 4K display, fast data, card reader, and 100W passthrough so your laptop still charges while it's all plugged in.</p>
+          <div class="specs">
+            <span class="spec-pill">HDMI: 4K</span>
+            <span class="spec-pill">PD: 100W</span>
+            <span class="spec-pill">USB-A: 5Gbps ×2</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$22.99</div>
+            <a href="https://amzn.to/4hmP7GS" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="kvidio-anc-headphones" data-order="6" data-category="audio" data-name="kvidio active noise cancelling headphones">
+        <button class="fav-btn" data-fav-id="kvidio-anc-headphones" onclick="toggleFavorite('kvidio-anc-headphones', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4q23rqJ" class="card-media has-img img-link" aria-label="View KVIDIO ANC Headphones on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61BcRmV5jdL._AC_SL1500_.jpg" alt="KVIDIO Active Noise Cancelling Headphones" loading="lazy"></a>
+        <div class="card-body">
+          <h3>KVIDIO Active Noise Cancelling Headphones</h3>
+          <p class="take">70 hours of playtime means charging becomes a once-a-week task instead of a nightly one — with transparency mode for when you actually need to hear the room.</p>
+          <div class="specs">
+            <span class="spec-pill">BATT: 70H</span>
+            <span class="spec-pill">ANC: YES</span>
+            <span class="spec-pill">TRANSPARENCY: YES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$29.99</div>
+            <a href="https://amzn.to/4q23rqJ" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="ai-smart-glasses" data-order="7" data-category="wearables" data-name="ai smart glasses with camera">
+        <button class="fav-btn" data-fav-id="ai-smart-glasses" onclick="toggleFavorite('ai-smart-glasses', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/45aUlyh" class="card-media has-img img-link" aria-label="View AI Smart Glasses on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61BffzadxOL._AC_SL1500_.jpg" alt="AI Smart Glasses with Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>AI Smart Glasses with Camera</h3>
+          <p class="take">Hands-free 8MP photos and video, plus real-time translation and an AI voice assistant built into a pair of sunglasses — no phone in hand required.</p>
+          <div class="specs">
+            <span class="spec-pill">CAMERA: 8MP</span>
+            <span class="spec-pill">VIDEO: 1080P</span>
+            <span class="spec-pill">TRANSLATION: REAL-TIME</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$79.99</div>
+            <a href="https://amzn.to/45aUlyh" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="apple-watch-series-8-renewed" data-order="42" data-category="wearables" data-name="apple watch series 8 renewed gps 45mm">
+        <button class="fav-btn" data-fav-id="apple-watch-series-8-renewed" onclick="toggleFavorite('apple-watch-series-8-renewed', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4hsKPxS" class="card-media has-img img-link" aria-label="View Apple Watch Series 8 (Renewed) on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71xSYnvg7OL._AC_SL1500_.jpg" alt="Apple Watch Series 8, 45mm (Renewed)" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Apple Watch Series 8, 45mm (Renewed)</h3>
+          <p class="take">Full Apple ecosystem integration for well under retail — being renewed is the actual reason the price works, not a downside if you weren't buying it for the box.</p>
+          <div class="specs">
+            <span class="spec-pill">SIZE: 45mm</span>
+            <span class="spec-pill">CONDITION: RENEWED</span>
+            <span class="spec-pill">GPS: YES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$169.00</div>
+            <a href="https://amzn.to/4hsKPxS" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="portable-rechargeable-fan" data-order="8" data-category="outdoor" data-name="portable fan rechargeable led lantern">
+        <button class="fav-btn" data-fav-id="portable-rechargeable-fan" onclick="toggleFavorite('portable-rechargeable-fan', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/45haNNl" class="card-media has-img img-link" aria-label="View Portable Rechargeable Fan on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71wT4KMzMoL._AC_SL1500_.jpg" alt="Portable Rechargeable Fan with LED Lantern" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Portable Rechargeable Fan with LED Lantern</h3>
+          <p class="take">A fan and a lantern in one cordless unit — big enough battery to run all night at a campsite, small enough to clip onto a desk at the office.</p>
+          <div class="specs">
+            <span class="spec-pill">CAPACITY: 20,000mAh</span>
+            <span class="spec-pill">LIGHT: LED LANTERN</span>
+            <span class="spec-pill">CORDLESS: YES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$25.63</div>
+            <a href="https://amzn.to/45haNNl" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="kasa-pan-tilt-security-camera" data-order="9" data-category="smart-home" data-name="kasa 1080p indoor pan tilt security camera">
+        <button class="fav-btn" data-fav-id="kasa-pan-tilt-security-camera" onclick="toggleFavorite('kasa-pan-tilt-security-camera', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4q1DSG1" class="card-media has-img img-link" aria-label="View Kasa Pan/Tilt Security Camera on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/51oao7xTT8L._AC_SL1500_.jpg" alt="Kasa 1080p Indoor Pan/Tilt Security Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Kasa 1080p Indoor Pan/Tilt Security Camera</h3>
+          <p class="take">Doubles as a baby or pet monitor — motion tracking follows movement around the room, and local storage means no mandatory subscription to actually use it.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 1080P</span>
+            <span class="spec-pill">STORAGE: LOCAL/CLOUD</span>
+            <span class="spec-pill">AUDIO: 2-WAY</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$25.99</div>
+            <a href="https://amzn.to/4q1DSG1" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="3-in-1-charging-stand" data-order="10" data-category="charging" data-name="charging stand for watch iphone earbuds">
+        <button class="fav-btn" data-fav-id="3-in-1-charging-stand" onclick="toggleFavorite('3-in-1-charging-stand', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wMw9OC" class="card-media has-img img-link" aria-label="View 3-in-1 Charging Stand on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/713nIdPKuZL._AC_SL1500_.jpg" alt="Charging Stand for Watch, iPhone & Earbuds" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Charging Stand for Watch, iPhone &amp; Earbuds</h3>
+          <p class="take">One spot on the nightstand or desk for phone, watch, and earbuds instead of three separate cables tangled together.</p>
+          <div class="specs">
+            <span class="spec-pill">PORTS: USB-A + USB-C</span>
+            <span class="spec-pill">FITS: PHONE+WATCH+BUDS</span>
+            <span class="spec-pill">BASE: NON-SLIP</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$18.39</div>
+            <a href="https://amzn.to/4wMw9OC" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="lisen-magsafe-car-mount" data-order="46" data-category="charging" data-name="lisen 15w magsafe car mount charger">
+        <button class="fav-btn" data-fav-id="lisen-magsafe-car-mount" onclick="toggleFavorite('lisen-magsafe-car-mount', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xDE558" class="card-media has-img img-link" aria-label="View LISEN MagSafe Car Mount on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61UdigRz7xL._AC_SL1024_.jpg" alt="LISEN 15W MagSafe Car Mount Charger" loading="lazy"></a>
+        <div class="card-body">
+          <h3>LISEN 15W MagSafe Car Mount Charger</h3>
+          <p class="take">A 96lb suction rating means it's not the mount that eventually falls off the dash mid-drive — snap the phone on and it's already charging, no cable to fumble with.</p>
+          <div class="specs">
+            <span class="spec-pill">OUTPUT: 15W</span>
+            <span class="spec-pill">MOUNT: VACUUM SUCTION</span>
+            <span class="spec-pill">ROTATION: 360°</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$32.99</div>
+            <a href="https://amzn.to/4xDE558" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="fly2sky-camping-lights" data-order="11" data-category="outdoor" data-name="fly2sky portable led camping lights 4 pack">
+        <button class="fav-btn" data-fav-id="fly2sky-camping-lights" onclick="toggleFavorite('fly2sky-camping-lights', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4g5bQ8b" class="card-media has-img img-link" aria-label="View FLY2SKY Portable LED Camping Lights on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61pYkROrdeL._AC_SL1500_.jpg" alt="FLY2SKY Portable LED Camping Lights, 4-Pack" loading="lazy"></a>
+        <div class="card-body">
+          <h3>FLY2SKY Portable LED Camping Lights, 4-Pack</h3>
+          <p class="take">Clip-hook design means these go anywhere — tent ceiling, backpack strap, or a drawer for the next power outage — for less than the price of one lantern elsewhere.</p>
+          <div class="specs">
+            <span class="spec-pill">PACK: 4</span>
+            <span class="spec-pill">MOUNT: CLIP HOOK</span>
+            <span class="spec-pill">POWER: BATTERY</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$13.99</div>
+            <a href="https://amzn.to/4g5bQ8b" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="rechargeable-camping-lantern" data-order="12" data-category="outdoor" data-name="camping lantern rechargeable flashlight emergency light">
+        <button class="fav-btn" data-fav-id="rechargeable-camping-lantern" onclick="toggleFavorite('rechargeable-camping-lantern', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xo4gfO" class="card-media has-img img-link" aria-label="View Rechargeable Camping Lantern on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71Q6XkzJHTL._AC_SL1500_.jpg" alt="Rechargeable Camping Lantern & Flashlight" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Rechargeable Camping Lantern &amp; Flashlight</h3>
+          <p class="take">1000 lumens is bright enough to light a whole campsite, and 6 modes cover everything from a reading light to an SOS strobe in an actual emergency.</p>
+          <div class="specs">
+            <span class="spec-pill">BRIGHTNESS: 1000LM</span>
+            <span class="spec-pill">MODES: 6</span>
+            <span class="spec-pill">BATTERY: 4000mAh</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$22.99</div>
+            <a href="https://amzn.to/4xo4gfO" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="4k-night-vision-goggles" data-order="13" data-category="outdoor" data-name="4k night vision goggles digital">
+        <button class="fav-btn" data-fav-id="4k-night-vision-goggles" onclick="toggleFavorite('4k-night-vision-goggles', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wNMcMp" class="card-media has-img img-link" aria-label="View 4K Night Vision Goggles on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/813Y1mvdYTL._AC_SL1500_.jpg" alt="4K Night Vision Goggles" loading="lazy"></a>
+        <div class="card-body">
+          <h3>4K Digital Night Vision Goggles</h3>
+          <p class="take">Turns pitch-dark trails or a backyard into a visible 4.5" screen — the kind of gear that makes a hike after sunset actually feel safe instead of risky.</p>
+          <div class="specs">
+            <span class="spec-pill">SCREEN: 4.5" HD</span>
+            <span class="spec-pill">BATTERY: 5000mAh</span>
+            <span class="spec-pill">TYPE: DIGITAL</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.98</div>
+            <a href="https://amzn.to/4wNMcMp" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="kodak-pixpro-fz55" data-order="14" data-category="cameras" data-name="kodak pixpro fz55 digital camera">
+        <button class="fav-btn" data-fav-id="kodak-pixpro-fz55" onclick="toggleFavorite('kodak-pixpro-fz55', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xtBMkX" class="card-media has-img img-link" aria-label="View KODAK PIXPRO FZ55 Camera on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81swjZCbdiL._AC_SL1500_.jpg" alt="KODAK PIXPRO FZ55 Compact Digital Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>KODAK PIXPRO FZ55 Compact Digital Camera</h3>
+          <p class="take">A dedicated point-and-shoot with real optical zoom — the kind of photo/video quality phone cameras still can't match at this price, especially for vlogging.</p>
+          <div class="specs">
+            <span class="spec-pill">RESOLUTION: 16MP</span>
+            <span class="spec-pill">ZOOM: 5X OPTICAL</span>
+            <span class="spec-pill">VIDEO: 1080P</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$139.99</div>
+            <a href="https://amzn.to/4xtBMkX" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="eufy-solocam-s220" data-order="15" data-category="smart-home" data-name="eufy security solocam s220 solar camera">
+        <button class="fav-btn" data-fav-id="eufy-solocam-s220" onclick="toggleFavorite('eufy-solocam-s220', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wIDLSh" class="card-media has-img img-link" aria-label="View eufy SoloCam S220 Solar Camera on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71oSxJycVlL._AC_SL1500_.jpg" alt="eufy Security SoloCam S220 Solar Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>eufy SoloCam S220 Solar Security Camera</h3>
+          <p class="take">The solar panel means it basically never needs charging outdoors, and the built-in 8GB storage means no monthly subscription just to see your own footage.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 2K</span>
+            <span class="spec-pill">POWER: SOLAR</span>
+            <span class="spec-pill">STORAGE: 8GB BUILT-IN</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.99</div>
+            <a href="https://amzn.to/4wIDLSh" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="bluetooth-tracker-tags-2pack" data-order="41" data-category="smart-home" data-name="bluetooth tracker tags find my 2 pack">
+        <button class="fav-btn" data-fav-id="bluetooth-tracker-tags-2pack" onclick="toggleFavorite('bluetooth-tracker-tags-2pack', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4gpfaMD" class="card-media has-img img-link" aria-label="View Bluetooth Tracker Tags 2-Pack on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/519N2nFhAoL._AC_SL1500_.jpg" alt="Bluetooth Tracker Tags, 2-Pack" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Bluetooth Tracker Tags, 2-Pack</h3>
+          <p class="take">MFi certified means it plugs straight into Apple's Find My network — worldwide tracking without a separate app, and the battery is replaceable instead of forcing a buy-new when it dies.</p>
+          <div class="specs">
+            <span class="spec-pill">NETWORK: FIND MY (iOS)</span>
+            <span class="spec-pill">WATERPROOF: YES</span>
+            <span class="spec-pill">PACK: 2</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$19.99</div>
+            <a href="https://amzn.to/4gpfaMD" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="tikom-g8000-robot-vacuum" data-order="50" data-category="smart-home" data-name="tikom robot vacuum mop combo g8000">
+        <button class="fav-btn" data-fav-id="tikom-g8000-robot-vacuum" onclick="toggleFavorite('tikom-g8000-robot-vacuum', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wq0bHc" class="card-media has-img img-link" aria-label="View Tikom G8000 Robot Vacuum on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71lOhFFaWuL._AC_SL1500_.jpg" alt="Tikom G8000 Robot Vacuum and Mop Combo" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Tikom G8000 Robot Vacuum &amp; Mop Combo</h3>
+          <p class="take">5000Pa suction and self-charging means it actually finishes a whole floor and puts itself away — the vacuum-and-mop combo means one device instead of managing two.</p>
+          <div class="specs">
+            <span class="spec-pill">SUCTION: 5000Pa</span>
+            <span class="spec-pill">RUNTIME: 150 MIN</span>
+            <span class="spec-pill">CONTROL: APP + REMOTE</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$149.99</div>
+            <a href="https://amzn.to/4wq0bHc" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="beginner-fpv-drone" data-order="16" data-category="cameras" data-name="drone with camera beginner 2k fpv">
+        <button class="fav-btn" data-fav-id="beginner-fpv-drone" onclick="toggleFavorite('beginner-fpv-drone', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/45Ux57L" class="card-media has-img img-link" aria-label="View Beginner FPV Drone on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81a7QAIa0PL._AC_SL1500_.jpg" alt="Beginner FPV Drone with 2K Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Beginner FPV Drone with 2K Camera</h3>
+          <p class="take">One-key takeoff/landing and headless mode strip out the hard part of flying, so it's an actual beginner drone instead of one that says "beginner" on the box.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 2K</span>
+            <span class="spec-pill">BATTERIES: 2</span>
+            <span class="spec-pill">MODE: HEADLESS</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$66.99</div>
+            <a href="https://amzn.to/45Ux57L" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="electric-water-guns-2pack" data-order="17" data-category="outdoor" data-name="electric water guns automatic 2 pack">
+        <button class="fav-btn" data-fav-id="electric-water-guns-2pack" onclick="toggleFavorite('electric-water-guns-2pack', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xocHaY" class="card-media has-img img-link" aria-label="View Electric Water Guns 2-Pack on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71V++cCqoHL._AC_SL1500_.jpg" alt="Electric Water Guns, 2-Pack" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Electric Water Guns, 2-Pack</h3>
+          <p class="take">An 800ml tank and 26-32ft range turns a backyard water fight into something closer to a real skirmish — automatic firing means no more hand-pumping between shots.</p>
+          <div class="specs">
+            <span class="spec-pill">RANGE: 26-32 FT</span>
+            <span class="spec-pill">TANK: 800ml</span>
+            <span class="spec-pill">PACK: 2</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$53.99</div>
+            <a href="https://amzn.to/4xocHaY" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="nelko-pp01-photo-printer" data-order="18" data-category="cameras" data-name="nelko pp01 portable photo printer">
+        <button class="fav-btn" data-fav-id="nelko-pp01-photo-printer" onclick="toggleFavorite('nelko-pp01-photo-printer', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4fHGA00" class="card-media has-img img-link" aria-label="View Nelko PP01 Photo Printer on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81IOl8ng5CL._AC_SL1500_.jpg" alt="Nelko PP01 Portable Photo Printer" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Nelko PP01 Portable Photo Printer</h3>
+          <p class="take">Bluetooth straight from your phone to a physical sticky-back photo in under a minute — no ink cartridges, no computer, no waiting for a photo lab.</p>
+          <div class="specs">
+            <span class="spec-pill">SIZE: 2x3"</span>
+            <span class="spec-pill">CONNECT: BLUETOOTH</span>
+            <span class="spec-pill">EDITING: AI APP</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$69.99</div>
+            <a href="https://amzn.to/4fHGA00" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="fujifilm-instax-mini-12" data-order="19" data-category="cameras" data-name="fujifilm instax mini 12 instant camera">
+        <button class="fav-btn" data-fav-id="fujifilm-instax-mini-12" onclick="toggleFavorite('fujifilm-instax-mini-12', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xxQuHK" class="card-media has-img img-link" aria-label="View Fujifilm Instax Mini 12 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/51BCl6AKK-L._AC_SL1200_.jpg" alt="Fujifilm Instax Mini 12 Instant Camera" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Fujifilm Instax Mini 12 Instant Camera</h3>
+          <p class="take">A real physical print in your hand seconds after the shot — the selfie mirror and auto exposure mean it's genuinely simple to use at a party, not just cute to look at.</p>
+          <div class="specs">
+            <span class="spec-pill">TYPE: INSTANT FILM</span>
+            <span class="spec-pill">MIRROR: SELFIE</span>
+            <span class="spec-pill">EXPOSURE: AUTO</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$83.99</div>
+            <a href="https://amzn.to/4xxQuHK" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="wireless-earbuds-bt54" data-order="20" data-category="audio" data-name="wireless earbuds bluetooth 5.4 waterproof">
+        <button class="fav-btn" data-fav-id="wireless-earbuds-bt54" onclick="toggleFavorite('wireless-earbuds-bt54', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3SjZy3S" class="card-media has-img img-link" aria-label="View Wireless Earbuds Bluetooth 5.4 on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61HyQ94QVGL._AC_SL1500_.jpg" alt="Wireless Earbuds, Bluetooth 5.4" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Wireless Earbuds, Bluetooth 5.4</h3>
+          <p class="take">36 hours of total battery and an IP7 waterproof rating for under $22 — hard to justify spending more for a gym or commute pair.</p>
+          <div class="specs">
+            <span class="spec-pill">BATT: 36H</span>
+            <span class="spec-pill">WATERPROOF: IP7</span>
+            <span class="spec-pill">BLUETOOTH: 5.4</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$21.99</div>
+            <a href="https://amzn.to/3SjZy3S" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="ipx5-waterproof-bt-speaker" data-order="38" data-category="audio" data-name="portable bluetooth speaker waterproof beach">
+        <button class="fav-btn" data-fav-id="ipx5-waterproof-bt-speaker" onclick="toggleFavorite('ipx5-waterproof-bt-speaker', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4fOdpsj" class="card-media has-img img-link" aria-label="View IPX5 Waterproof Bluetooth Speaker on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/81HnNTYoCSL._AC_SL1500_.jpg" alt="Portable Waterproof Bluetooth Speaker" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Portable Waterproof Bluetooth Speaker</h3>
+          <p class="take">IPX5-rated means pool splashes and beach spray don't end the party — TWS pairing lets you link a second one for actual stereo sound outdoors.</p>
+          <div class="specs">
+            <span class="spec-pill">WATERPROOF: IPX5</span>
+            <span class="spec-pill">BLUETOOTH: 5.3</span>
+            <span class="spec-pill">PAIRING: TWS</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$29.99</div>
+            <a href="https://amzn.to/4fOdpsj" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="anker-nano-power-bank" data-order="3" data-category="charging" data-name="anker nano power bank 10000mah">
+        <button class="fav-btn" data-fav-id="anker-nano-power-bank" onclick="toggleFavorite('anker-nano-power-bank', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4q48BCg" class="card-media has-img img-link" aria-label="View Anker Nano Power Bank on Amazon"><img src="https://m.media-amazon.com/images/I/71VBsjWGp1L._AC_SL1500_.jpg" alt="Anker Nano Power Bank 10000mAh" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Anker Nano Power Bank, 10,000mAh 30W</h3>
+          <p class="take">Skips the "forgot my cable" problem entirely — the USB-C cable is built in, and it still charges fast enough to top up an iPhone in half an hour.</p>
+          <div class="specs">
+            <span class="spec-pill">CAPACITY: 10,000mAh</span>
+            <span class="spec-pill">OUTPUT: 30W</span>
+            <span class="spec-pill">CABLE: BUILT-IN</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$27.99</div>
+            <a href="https://amzn.to/4q48BCg" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="mnn-15-6-portable-monitor" data-order="21" data-category="computing" data-name="mnn 15.6 portable monitor usb-c hdmi">
+        <button class="fav-btn" data-fav-id="mnn-15-6-portable-monitor" onclick="toggleFavorite('mnn-15-6-portable-monitor', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4zlMmwa" class="card-media has-img img-link" aria-label="View MNN 15.6 Portable Monitor on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81Q9vMNUOyL._AC_SL1500_.jpg" alt="MNN 15.6-inch Portable Monitor" loading="lazy"></a>
+        <div class="card-body">
+          <h3>MNN 15.6" Portable Monitor</h3>
+          <p class="take">Under 700g and a single USB-C cable turns any laptop into a dual-screen setup — works with a Switch too, not just a PC.</p>
+          <div class="specs">
+            <span class="spec-pill">SIZE: 15.6"</span>
+            <span class="spec-pill">PANEL: IPS HDR</span>
+            <span class="spec-pill">CONNECT: USB-C/HDMI</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$49.99</div>
+            <a href="https://amzn.to/4zlMmwa" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="gskyer-70mm-telescope" data-order="22" data-category="outdoor" data-name="gskyer telescope 70mm aperture travel">
+        <button class="fav-btn" data-fav-id="gskyer-70mm-telescope" onclick="toggleFavorite('gskyer-70mm-telescope', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wJCD0R" class="card-media has-img img-link" aria-label="View Gskyer 70mm Telescope on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71cb2RCy+aL._AC_SL1500_.jpg" alt="Gskyer 70mm Travel Telescope" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Gskyer 70mm Travel Telescope</h3>
+          <p class="take">The phone adapter is the real selling point — actually capture what you're looking at instead of just squinting through an eyepiece and describing it to someone else.</p>
+          <div class="specs">
+            <span class="spec-pill">APERTURE: 70mm</span>
+            <span class="spec-pill">MOUNT: 400mm AZ</span>
+            <span class="spec-pill">INCLUDES: PHONE ADAPTER</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$96.99</div>
+            <a href="https://amzn.to/4wJCD0R" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="aurzen-roku-tv-projector" data-order="23" data-category="streaming-tv" data-name="aurzen roku tv d1r portable outdoor projector">
+        <button class="fav-btn" data-fav-id="aurzen-roku-tv-projector" onclick="toggleFavorite('aurzen-roku-tv-projector', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wi7Cjx" class="card-media has-img img-link" aria-label="View Aurzen Roku TV Portable Projector on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71M3XVYabdL._AC_SL1500_.jpg" alt="Aurzen Roku TV D1R Portable Projector" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Aurzen Roku TV D1R Portable Projector</h3>
+          <p class="take">Roku is built directly into the projector — no separate streaming stick or box needed, so it's a real outdoor movie setup out of the case, not just a screen and a wire.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 1080P FHD</span>
+            <span class="spec-pill">ROKU: BUILT-IN</span>
+            <span class="spec-pill">USE: HOME+OUTDOOR</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$139.99</div>
+            <a href="https://amzn.to/4wi7Cjx" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="samsung-32-inch-f6000-smart-tv" data-order="24" data-category="streaming-tv" data-name="samsung 32 inch full hd f6000 smart tv">
+        <button class="fav-btn" data-fav-id="samsung-32-inch-f6000-smart-tv" onclick="toggleFavorite('samsung-32-inch-f6000-smart-tv', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4giPP70" class="card-media has-img img-link" aria-label="View Samsung 32-Inch F6000 Smart TV on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71mXcPOmS4L._AC_SL1500_.jpg" alt="Samsung 32-Inch F6000 Smart TV" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Samsung 32" F6000 Smart TV</h3>
+          <p class="take">Skips the streaming-stick step entirely — apps, HDR, and Samsung's Tizen smart platform are already built in, which matters most for a small bedroom or dorm set.</p>
+          <div class="specs">
+            <span class="spec-pill">SIZE: 32"</span>
+            <span class="spec-pill">RESOLUTION: FULL HD</span>
+            <span class="spec-pill">OS: TIZEN</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$177.99</div>
+            <a href="https://amzn.to/4giPP70" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="toloco-massage-gun" data-order="25" data-category="wellness" data-name="toloco massage gun percussion deep tissue">
+        <button class="fav-btn" data-fav-id="toloco-massage-gun" onclick="toggleFavorite('toloco-massage-gun', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4g11BBJ" class="card-media has-img img-link" aria-label="View TOLOCO Massage Gun on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/710+ET1Dk6L._AC_SL1500_.jpg" alt="TOLOCO Massage Gun" loading="lazy"></a>
+        <div class="card-body">
+          <h3>TOLOCO Percussion Massage Gun</h3>
+          <p class="take">10 head attachments and 7 speed levels cover everything from a light shoulder rub to real deep-tissue work — quiet enough to use while someone's on a call in the next room.</p>
+          <div class="specs">
+            <span class="spec-pill">SPEEDS: 7</span>
+            <span class="spec-pill">HEADS: 10</span>
+            <span class="spec-pill">NOISE: QUIET</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$49.99</div>
+            <a href="https://amzn.to/4g11BBJ" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="gugttr-under-desk-elliptical" data-order="26" data-category="wellness" data-name="gugttr under desk elliptical leg exerciser">
+        <button class="fav-btn" data-fav-id="gugttr-under-desk-elliptical" onclick="toggleFavorite('gugttr-under-desk-elliptical', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3RRxdlj" class="card-media has-img img-link" aria-label="View GUGTTR Under Desk Elliptical on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71IZKtowSJL._AC_SL1500_.jpg" alt="GUGTTR Under Desk Elliptical Machine" loading="lazy"></a>
+        <div class="card-body">
+          <h3>GUGTTR Under Desk Elliptical Machine</h3>
+          <p class="take">Motorized and seated, so it's built for people who can't or don't want to stand and pedal — a remote and 12 speeds mean no bending down to adjust anything mid-use.</p>
+          <div class="specs">
+            <span class="spec-pill">SPEEDS: 12</span>
+            <span class="spec-pill">CONTROL: REMOTE</span>
+            <span class="spec-pill">USE: SEATED</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$89.97</div>
+            <a href="https://amzn.to/3RRxdlj" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="gootop-bug-zapper" data-order="27" data-category="outdoor" data-name="gootop bug zapper mosquito outdoor">
+        <button class="fav-btn" data-fav-id="gootop-bug-zapper" onclick="toggleFavorite('gootop-bug-zapper', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xr82Fb" class="card-media has-img img-link" aria-label="View GOOTOP Bug Zapper on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71fATgj5scL._AC_SL1500_.jpg" alt="GOOTOP Bug Zapper Outdoor" loading="lazy"></a>
+        <div class="card-body">
+          <h3>GOOTOP Bug Zapper</h3>
+          <p class="take">4200V is enough to clear a patio or campsite of mosquitoes without spraying anything on your skin — plugs straight into a 3-prong outlet, no batteries to manage.</p>
+          <div class="specs">
+            <span class="spec-pill">VOLTAGE: 4200V</span>
+            <span class="spec-pill">PLUG: 3-PRONG</span>
+            <span class="spec-pill">USE: INDOOR/OUTDOOR</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.99</div>
+            <a href="https://amzn.to/4xr82Fb" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="indoor-fruit-fly-trap" data-order="35" data-category="outdoor" data-name="fly trap indoor fruit fly gnat killer">
+        <button class="fav-btn" data-fav-id="indoor-fruit-fly-trap" onclick="toggleFavorite('indoor-fruit-fly-trap', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4fNRfq5" class="card-media has-img img-link" aria-label="View Indoor Fly Trap on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71lVTUcsIgL._AC_SL1500_.jpg" alt="Indoor Fruit Fly Trap" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Indoor Fruit Fly &amp; Gnat Trap</h3>
+          <p class="take">Plug-in and quiet, with a UV wavelength tuned for fruit flies and gnats specifically — 10 refills means it's not a one-and-done purchase.</p>
+          <div class="specs">
+            <span class="spec-pill">LIGHT: 365-395NM UV</span>
+            <span class="spec-pill">REFILLS: 10</span>
+            <span class="spec-pill">NOISE: LOW</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$45.99</div>
+            <a href="https://amzn.to/4fNRfq5" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="ultrasonic-pest-repeller" data-order="36" data-category="outdoor" data-name="indoor ultrasonic pest repeller rodent">
+        <button class="fav-btn" data-fav-id="ultrasonic-pest-repeller" onclick="toggleFavorite('ultrasonic-pest-repeller', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4g6AHsf" class="card-media has-img img-link" aria-label="View Ultrasonic Pest Repeller on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61SBMbbEz4L._AC_SL1500_.jpg" alt="Indoor Ultrasonic Pest Repeller" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Indoor Ultrasonic Pest Repeller</h3>
+          <p class="take">No chemicals, no traps to empty — just plug it in and let the 360° ultrasonic coverage handle rodents in a garage or attic passively.</p>
+          <div class="specs">
+            <span class="spec-pill">FREQUENCY: 25-65 KHz</span>
+            <span class="spec-pill">MODES: 3</span>
+            <span class="spec-pill">COVERAGE: 360°</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$54.99</div>
+            <a href="https://amzn.to/4g6AHsf" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="philips-norelco-3600-shaver" data-order="28" data-category="wellness" data-name="philips norelco 3600 electric shaver">
+        <button class="fav-btn" data-fav-id="philips-norelco-3600-shaver" onclick="toggleFavorite('philips-norelco-3600-shaver', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/45frfOk" class="card-media has-img img-link" aria-label="View Philips Norelco 3600 Shaver on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81Put+7GnuL._AC_SL1500_.jpg" alt="Philips Norelco 3600 Electric Shaver" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Philips Norelco 3600 Electric Shaver</h3>
+          <p class="take">Wet or dry means it works in the shower, cutting the whole routine down to one step — and the travel pouch means it's not the thing you forget to pack.</p>
+          <div class="specs">
+            <span class="spec-pill">BLADES: 27</span>
+            <span class="spec-pill">USE: WET/DRY</span>
+            <span class="spec-pill">INCLUDES: TRAVEL POUCH</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$69.95</div>
+            <a href="https://amzn.to/45frfOk" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="thermomaven-electric-grinder-set" data-order="29" data-category="kitchen" data-name="thermomaven electric salt pepper grinder set">
+        <button class="fav-btn" data-fav-id="thermomaven-electric-grinder-set" onclick="toggleFavorite('thermomaven-electric-grinder-set', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4xsUOYu" class="card-media has-img img-link" aria-label="View ThermoMaven Electric Grinder Set on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81EZWQYOt1L._AC_SL1500_.jpg" alt="ThermoMaven Electric Salt and Pepper Grinder Set" loading="lazy"></a>
+        <div class="card-body">
+          <h3>ThermoMaven Electric Salt &amp; Pepper Grinder Set</h3>
+          <p class="take">One-hand automatic grinding with an LED light so it actually works over a dark stovetop, not just on a bright countertop — rechargeable instead of eating batteries.</p>
+          <div class="specs">
+            <span class="spec-pill">CAPACITY: 110ml</span>
+            <span class="spec-pill">COARSENESS: 6 LEVELS</span>
+            <span class="spec-pill">LIGHT: LED</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.99</div>
+            <a href="https://amzn.to/4xsUOYu" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="lenovo-idea-tab-11" data-order="30" data-category="computing" data-name="lenovo idea tab 11 college tablet">
+        <button class="fav-btn" data-fav-id="lenovo-idea-tab-11" onclick="toggleFavorite('lenovo-idea-tab-11', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/45gsQU0" class="card-media has-img img-link" aria-label="View Lenovo Idea Tab 11 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61-7FkUAw-L._AC_SL1500_.jpg" alt="Lenovo Idea Tab 11-inch College Tablet" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Lenovo Idea Tab 11" College Tablet</h3>
+          <p class="take">Comes with the pen and folio case included instead of as a $50 add-on — a genuinely complete note-taking setup for the price of the tablet alone.</p>
+          <div class="specs">
+            <span class="spec-pill">DISPLAY: 11" 2.5K</span>
+            <span class="spec-pill">STORAGE: 128GB</span>
+            <span class="spec-pill">INCLUDES: PEN+FOLIO</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$212.79</div>
+            <a href="https://amzn.to/45gsQU0" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="wolfbox-megaflow-50-air-duster" data-order="31" data-category="computing" data-name="wolfbox megaflow 50 compressed air duster">
+        <button class="fav-btn" data-fav-id="wolfbox-megaflow-50-air-duster" onclick="toggleFavorite('wolfbox-megaflow-50-air-duster', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4z5z3zN" class="card-media has-img img-link" aria-label="View WOLFBOX MegaFlow 50 Air Duster on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/713BEhBxXWL._AC_SL1500_.jpg" alt="WOLFBOX MegaFlow 50 Compressed Air Duster" loading="lazy"></a>
+        <div class="card-body">
+          <h3>WOLFBOX MegaFlow 50 Air Duster</h3>
+          <p class="take">Rechargeable instead of a canned-air can you throw away every few uses — 110,000 RPM and 4 nozzles cover a keyboard, a PC case, or car vents with the same tool.</p>
+          <div class="specs">
+            <span class="spec-pill">RPM: 110,000</span>
+            <span class="spec-pill">GEARS: 3-ADJUSTABLE</span>
+            <span class="spec-pill">NOZZLES: 4</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$39.99</div>
+            <a href="https://amzn.to/4z5z3zN" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="oral-b-io-series-3" data-order="32" data-category="wellness" data-name="oral-b io series 3 electric toothbrush">
+        <button class="fav-btn" data-fav-id="oral-b-io-series-3" onclick="toggleFavorite('oral-b-io-series-3', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4g5CvBH" class="card-media has-img img-link" aria-label="View Oral-B iO Series 3 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/716aBZ5fzEL._AC_SL1500_.jpg" alt="Oral-B iO Series 3 Electric Toothbrush" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Oral-B iO Series 3 Electric Toothbrush</h3>
+          <p class="take">The smart pressure sensor is the actual upgrade over a regular electric brush — it stops you from brushing too hard before your gums pay for it.</p>
+          <div class="specs">
+            <span class="spec-pill">MODES: 3</span>
+            <span class="spec-pill">SENSOR: PRESSURE</span>
+            <span class="spec-pill">INCLUDES: 2 HEADS + CASE</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$109.99</div>
+            <a href="https://amzn.to/4g5CvBH" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="mirakel-heat-neck-massager" data-order="37" data-category="wellness" data-name="mirakel heat neck massager pain relief">
+        <button class="fav-btn" data-fav-id="mirakel-heat-neck-massager" onclick="toggleFavorite('mirakel-heat-neck-massager', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wOEIbP" class="card-media has-img img-link" aria-label="View Mirakel Heat Neck Massager on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/816iTKz9sAL._AC_SL1500_.jpg" alt="Mirakel Heat Neck Massager" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Mirakel Heat Neck Massager</h3>
+          <p class="take">3D kneading nodes and heat target the exact spot a desk job wrecks — auto shutoff means it's safe to fall asleep wearing it, which people actually do.</p>
+          <div class="specs">
+            <span class="spec-pill">NODES: 3D KNEADING</span>
+            <span class="spec-pill">HEAT: YES</span>
+            <span class="spec-pill">SHUTOFF: AUTO</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$27.99</div>
+            <a href="https://amzn.to/4wOEIbP" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="fanttik-e1-max-screwdriver" data-order="33" data-category="computing" data-name="fanttik e1 max precision electric screwdriver">
+        <button class="fav-btn" data-fav-id="fanttik-e1-max-screwdriver" onclick="toggleFavorite('fanttik-e1-max-screwdriver', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3U7bxSR" class="card-media has-img img-link" aria-label="View Fanttik E1 Max Precision Screwdriver on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71eqWLbXipL._AC_SL1500_.jpg" alt="Fanttik E1 Max Precision Electric Screwdriver" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Fanttik E1 Max Precision Screwdriver Set</h3>
+          <p class="take">50 magnetic bits and a torque low enough for phone and laptop screws — the difference between actually opening a device and stripping the screw trying.</p>
+          <div class="specs">
+            <span class="spec-pill">BITS: 50 MAGNETIC</span>
+            <span class="spec-pill">TORQUE: 0.2N.m</span>
+            <span class="spec-pill">USE: ELECTRONICS REPAIR</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.97</div>
+            <a href="https://amzn.to/3U7bxSR" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="kamrui-ak1plus-mini-pc" data-order="40" data-category="computing" data-name="kamrui ak1plus mini pc celeron n5095">
+        <button class="fav-btn" data-fav-id="kamrui-ak1plus-mini-pc" onclick="toggleFavorite('kamrui-ak1plus-mini-pc', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4bFyS42" class="card-media has-img img-link" aria-label="View KAMRUI AK1PLUS Mini PC on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61Oin9rv3RL._AC_SL1500_.jpg" alt="KAMRUI AK1PLUS Mini PC" loading="lazy"></a>
+        <div class="card-body">
+          <h3>KAMRUI AK1PLUS Mini PC</h3>
+          <p class="take">16GB RAM and dual 4K output on something the size of a paperback — a real desktop replacement for browsing, office work, or a second monitor setup, not just a media box.</p>
+          <div class="specs">
+            <span class="spec-pill">RAM: 16GB</span>
+            <span class="spec-pill">STORAGE: 256GB SSD</span>
+            <span class="spec-pill">OUTPUT: DUAL 4K</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$349.99</div>
+            <a href="https://amzn.to/4bFyS42" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="wegear-4k-webcam" data-order="43" data-category="computing" data-name="wegear 4k webcam usb-a pc">
+        <button class="fav-btn" data-fav-id="wegear-4k-webcam" onclick="toggleFavorite('wegear-4k-webcam', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4qcMaLB" class="card-media has-img img-link" aria-label="View WeGear 4K Webcam on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71RnVaohnEL._AC_SL1500_.jpg" alt="WeGear 4K Webcam for PC" loading="lazy"></a>
+        <div class="card-body">
+          <h3>WeGear 4K Webcam for PC</h3>
+          <p class="take">A Sony sensor and real autofocus put this well above the laptop webcam most people are still stuck using for every meeting — the privacy cover means it stays closed when not on a call.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 4K@30FPS</span>
+            <span class="spec-pill">FOCUS: PDAF AUTOFOCUS</span>
+            <span class="spec-pill">MICS: DUAL NOISE-CANCEL</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$59.99</div>
+            <a href="https://amzn.to/4qcMaLB" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="usb-c-lavalier-microphone" data-order="44" data-category="computing" data-name="usb c lavalier wireless mini mic content creator">
+        <button class="fav-btn" data-fav-id="usb-c-lavalier-microphone" onclick="toggleFavorite('usb-c-lavalier-microphone', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wLSkEK" class="card-media has-img img-link" aria-label="View USB-C Lavalier Microphone on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/81WxGdDXQnL._AC_SL1500_.jpg" alt="USB-C Lavalier Microphone" loading="lazy"></a>
+        <div class="card-body">
+          <h3>USB-C Lavalier Microphone</h3>
+          <p class="take">Clips straight onto a shirt and plugs directly into an Android phone — the difference between audio that sounds professional and audio that sounds like it was recorded from across the room.</p>
+          <div class="specs">
+            <span class="spec-pill">CONNECT: USB-C</span>
+            <span class="spec-pill">CLIP: ROTATABLE</span>
+            <span class="spec-pill">AUDIO: DENOISE</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$28.99</div>
+            <a href="https://amzn.to/4wLSkEK" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="aula-f75-pro-keyboard" data-order="45" data-category="gaming" data-name="aula f75 pro wireless mechanical keyboard">
+        <button class="fav-btn" data-fav-id="aula-f75-pro-keyboard" onclick="toggleFavorite('aula-f75-pro-keyboard', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3SngYg1" class="card-media has-img img-link" aria-label="View AULA F75 Pro Mechanical Keyboard on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61MC8BK0w0L._AC_SL1500_.jpg" alt="AULA F75 Pro Wireless Mechanical Keyboard" loading="lazy"></a>
+        <div class="card-body">
+          <h3>AULA F75 Pro Mechanical Keyboard</h3>
+          <p class="take">Hot-swappable switches mean you're not stuck with whatever ships in the box — pre-lubed out of the gate is the kind of detail that usually costs a lot more.</p>
+          <div class="specs">
+            <span class="spec-pill">LAYOUT: 75%</span>
+            <span class="spec-pill">SWITCHES: HOT-SWAPPABLE</span>
+            <span class="spec-pill">CONNECT: 2.4GHz/USB-C/BT5.0</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$79.99</div>
+            <a href="https://amzn.to/3SngYg1" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="razer-basilisk-v3" data-order="47" data-category="gaming" data-name="razer basilisk v3 gaming mouse">
+        <button class="fav-btn" data-fav-id="razer-basilisk-v3" onclick="toggleFavorite('razer-basilisk-v3', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3TP9jaI" class="card-media has-img img-link" aria-label="View Razer Basilisk V3 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61AcT0ZuO3L._AC_SL1500_.jpg" alt="Razer Basilisk V3 Gaming Mouse" loading="lazy"></a>
+        <div class="card-body">
+          <h3>Razer Basilisk V3 Gaming Mouse</h3>
+          <p class="take">26K DPI and 11 programmable buttons is genuinely more precision than most people need, but the HyperScroll tilt wheel alone is the kind of upgrade you feel within the first hour.</p>
+          <div class="specs">
+            <span class="spec-pill">DPI: 26,000</span>
+            <span class="spec-pill">BUTTONS: 11 PROGRAMMABLE</span>
+            <span class="spec-pill">RGB: CHROMA</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$69.99</div>
+            <a href="https://amzn.to/3TP9jaI" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="aoc-wireless-gaming-headset" data-order="48" data-category="gaming" data-name="aoc wireless gaming headset ps5">
+        <button class="fav-btn" data-fav-id="aoc-wireless-gaming-headset" onclick="toggleFavorite('aoc-wireless-gaming-headset', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3S5PYBr" class="card-media has-img img-link" aria-label="View AOC Wireless Gaming Headset on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/71IbmKSmsuL._AC_SL1500_.jpg" alt="AOC Wireless Gaming Headset" loading="lazy"></a>
+        <div class="card-body">
+          <h3>AOC Wireless Gaming Headset</h3>
+          <p class="take">45 hours of playtime and 2.4GHz wireless for PS5, plus a 3.5mm cable as backup — works across PS5, PC, Switch, and Xbox instead of locking into one console's ecosystem.</p>
+          <div class="specs">
+            <span class="spec-pill">BATTERY: 45H</span>
+            <span class="spec-pill">CONNECT: 2.4GHz + 3.5mm</span>
+            <span class="spec-pill">COMPATIBLE: PS5/PC/SWITCH/XBOX</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$34.99</div>
+            <a href="https://amzn.to/3S5PYBr" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="redtiger-f7n-dashcam" data-order="49" data-category="computing" data-name="redtiger 4k starvis 2 dashcam front rear">
+        <button class="fav-btn" data-fav-id="redtiger-f7n-dashcam" onclick="toggleFavorite('redtiger-f7n-dashcam', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/4wgO6Ux" class="card-media has-img img-link" aria-label="View REDTIGER F7N Dashcam on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/716yL7ENIjL._AC_SL1500_.jpg" alt="REDTIGER 4K Dashcam Front and Rear" loading="lazy"></a>
+        <div class="card-body">
+          <h3>REDTIGER 4K Dashcam, Front &amp; Rear</h3>
+          <p class="take">Comes with a free 128GB card instead of a "buy separately" asterisk, and the supercapacitor means it still works reliably in extreme heat where battery-based dashcams tend to fail.</p>
+          <div class="specs">
+            <span class="spec-pill">VIDEO: 4K FRONT+REAR</span>
+            <span class="spec-pill">STORAGE: 128GB INCLUDED</span>
+            <span class="spec-pill">GPS: YES</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$169.99</div>
+            <a href="https://amzn.to/4wgO6Ux" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="blackdecker-cordless-screwdriver" data-order="34" data-category="tools" data-name="black+decker cordless screwdriver led light">
+        <button class="fav-btn" data-fav-id="blackdecker-cordless-screwdriver" onclick="toggleFavorite('blackdecker-cordless-screwdriver', event)" aria-label="Save to favorites">♡</button>
+        <a href="https://amzn.to/3Umnlk9" class="card-media has-img img-link" aria-label="View BLACK+DECKER Cordless Screwdriver on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/71NR6Gs2tPL._AC_SL1500_.jpg" alt="BLACK+DECKER Cordless Screwdriver with LED Light" loading="lazy"></a>
+        <div class="card-body">
+          <h3>BLACK+DECKER Cordless Screwdriver</h3>
+          <p class="take">The built-in LED is the small detail that matters most — most drawer-junk screwdrivers don't light up the exact screw you're trying to find in a dark cabinet.</p>
+          <div class="specs">
+            <span class="spec-pill">POWER: 4V MAX</span>
+            <span class="spec-pill">LIGHT: LED</span>
+            <span class="spec-pill">INCLUDES: 2 BITS</span>
+          </div>
+          <div class="card-foot">
+            <div class="price">$44.00</div>
+            <a href="https://amzn.to/3Umnlk9" class="buy-btn">View on Amazon</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more-wrap" id="load-more-wrap">
+      <button class="btn btn-load-more" onclick="loadMoreProducts()">Load More Products</button>
+    </div>
+
+  </div>
+</section>
+
+<section class="section bundles-section" id="bundles">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Kits &amp; Bundles</h2>
+      <span class="tag">MIX &amp; MATCH</span>
+    </div>
+    <div class="bundle-grid">
+
+      <div class="bundle-card">
+        <h3>Travel Tech Kit</h3>
+        <p class="bundle-desc">Entertainment, power, and quiet — covered for a flight, a hotel room, or a long train ride.</p>
+        <ul class="bundle-items">
+          <li><a href="#roku-streaming-stick-hd">Roku Streaming Stick HD</a><span>$29.99</span></li>
+          <li><a href="#anker-nano-power-bank">Anker Nano Power Bank</a><span>$27.99</span></li>
+          <li><a href="#kvidio-anc-headphones">KVIDIO ANC Headphones</a><span>$29.99</span></li>
+          <li><a href="#ai-smart-glasses">AI Smart Glasses</a><span>$79.99</span></li>
+        </ul>
+      </div>
+
+      <div class="bundle-card">
+        <h3>Work-From-Anywhere Kit</h3>
+        <p class="bundle-desc">One bag, one setup — plug in at a desk or a coffee shop and you're working within a minute.</p>
+        <ul class="bundle-items">
+          <li><a href="#ugreen-usb-c-hub">UGREEN USB-C Hub</a><span>$22.99</span></li>
+          <li><a href="#anker-nano-power-bank">Anker Nano Power Bank</a><span>$27.99</span></li>
+          <li><a href="#amazfit-bip-6">Amazfit Bip 6</a><span>$79.99</span></li>
+          <li><a href="#3-in-1-charging-stand">3-in-1 Charging Stand</a><span>$18.39</span></li>
+          <li><a href="#mnn-15-6-portable-monitor">MNN 15.6" Portable Monitor</a><span>$49.99</span></li>
+        </ul>
+      </div>
+
+      <div class="bundle-card">
+        <h3>First Smart Home Kit</h3>
+        <p class="bundle-desc">No hub, no wiring — the easiest possible entry point into voice-controlled home basics.</p>
+        <ul class="bundle-items">
+          <li><a href="#eightree-smart-plug">EIGHTREE Smart Plug 4-Pack</a><span>$24.99</span></li>
+          <li><a href="#roku-streaming-stick-hd">Roku Streaming Stick HD</a><span>$29.99</span></li>
+          <li><a href="#kasa-pan-tilt-security-camera">Kasa Pan/Tilt Security Camera</a><span>$25.99</span></li>
+          <li><a href="#eufy-solocam-s220">eufy SoloCam S220 (Outdoor)</a><span>$59.99</span></li>
+        </ul>
+      </div>
+
+      <div class="bundle-card">
+        <h3>Camping Essentials Kit</h3>
+        <p class="bundle-desc">Light, airflow, and pest control covered for a tent, a hike, or the next power outage.</p>
+        <ul class="bundle-items">
+          <li><a href="#portable-rechargeable-fan">Portable Rechargeable Fan</a><span>$25.63</span></li>
+          <li><a href="#fly2sky-camping-lights">FLY2SKY LED Camping Lights</a><span>$13.99</span></li>
+          <li><a href="#rechargeable-camping-lantern">Rechargeable Camping Lantern</a><span>$22.99</span></li>
+          <li><a href="#4k-night-vision-goggles">4K Night Vision Goggles</a><span>$59.98</span></li>
+          <li><a href="#gootop-bug-zapper">GOOTOP Bug Zapper</a><span>$59.99</span></li>
+        </ul>
+      </div>
+
+      <div class="bundle-card">
+        <h3>Photography Starter Kit</h3>
+        <p class="bundle-desc">Shoot it, print it, keep it — a dedicated camera setup that isn't just a phone.</p>
+        <ul class="bundle-items">
+          <li><a href="#kodak-pixpro-fz55">KODAK PIXPRO FZ55 Camera</a><span>$139.99</span></li>
+          <li><a href="#fujifilm-instax-mini-12">Fujifilm Instax Mini 12</a><span>$83.99</span></li>
+          <li><a href="#nelko-pp01-photo-printer">Nelko PP01 Photo Printer</a><span>$69.99</span></li>
+        </ul>
+      </div>
+
+      <div class="bundle-card">
+        <h3>Gaming Setup Kit</h3>
+        <p class="bundle-desc">Keyboard, mouse, and headset — the three things worth upgrading first.</p>
+        <ul class="bundle-items">
+          <li><a href="#aula-f75-pro-keyboard">AULA F75 Pro Keyboard</a><span>$79.99</span></li>
+          <li><a href="#razer-basilisk-v3">Razer Basilisk V3 Mouse</a><span>$69.99</span></li>
+          <li><a href="#aoc-wireless-gaming-headset">AOC Wireless Gaming Headset</a><span>$34.99</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="disclosure" id="about">
+  <div class="wrap">
+    <span class="mark">DISCLOSURE</span>
+    <p>GearScout is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by linking to Amazon.com. As an Amazon Associate, GearScout earns from qualifying purchases at no extra cost to you. Product opinions and picks remain independently chosen.</p>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <div class="cta-banner">
+      <div>
+        <h3>Looking for something specific?</h3>
+        <p>Jump straight to a category instead of scrolling.</p>
+      </div>
+      <div class="cta-links">
+        <a href="#categories" class="cta-link">Audio</a>
+        <a href="#categories" class="cta-link">Wearables</a>
+        <a href="#categories" class="cta-link">Smart Home</a>
+        <a href="#categories" class="cta-link">Computing</a>
+        <a href="#categories" class="cta-link">Charging</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="assets/logo-full.png" alt="GearScout, discover what's next" class="footer-logo-img">
+        <p style="font-size:0.85rem; max-width:280px; color:#8C8A83;">Independent tech &amp; gadget scouting. We research, compare, and point you to the best listing — you decide.</p>
+      </div>
+      <div>
+        <h4>CATEGORIES</h4>
+        <ul>
+          <li><a href="#categories">Audio</a></li>
+          <li><a href="#categories">Wearables</a></li>
+          <li><a href="#categories">Smart Home</a></li>
+          <li><a href="#categories">Computing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>SITE</h4>
+        <ul>
+          <li><a href="#picks">Scout's Picks</a></li>
+          <li><a href="#about">Disclosure</a></li>
+          <li><a href="mailto:gearscout88@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>LEGAL</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="#about">Affiliate Disclosure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-logo" style="display:flex;align-items:center;gap:8px;"><img src="assets/icon.png" alt="" style="width:20px;height:20px;">GearScout</span>
+      <span>© 2026 GearScout. Prices and availability subject to change.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const catNames = {
+    'streaming-tv': 'Streaming & TV',
+    'audio': 'Audio',
+    'wearables': 'Wearables',
+    'smart-home': 'Smart Home',
+    'computing': 'Computing',
+    'charging': 'Charging',
+    'outdoor': 'Outdoor & Camping',
+    'cameras': 'Cameras & Photography',
+    'wellness': 'Health & Wellness',
+    'kitchen': 'Kitchen & Dining',
+    'tools': 'Tools & Hardware',
+    'gaming': 'Gaming'
+  };
+  let activeCategory = null;
+  let revealedCount = 9;
+  const loadIncrement = 6;
+  let favoritesOnly = false;
+
+  function getFavorites(){
+    try {
+      return JSON.parse(localStorage.getItem('gearscout_favorites') || '[]');
+    } catch(e){ return []; }
+  }
+
+  function saveFavorites(favs){
+    localStorage.setItem('gearscout_favorites', JSON.stringify(favs));
+  }
+
+  function updateFavoritesUI(){
+    const favs = getFavorites();
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+      const isFav = favs.includes(btn.dataset.favId);
+      btn.classList.toggle('active', isFav);
+      btn.textContent = isFav ? '♥' : '♡';
+    });
+    const countEl = document.getElementById('fav-count');
+    if (countEl) countEl.textContent = favs.length ? '(' + favs.length + ')' : '';
+  }
+
+  function spawnConfetti(btn){
+    const colors = ['#FF6A1A', '#E04E00', '#FFB380'];
+    const rect = btn.getBoundingClientRect();
+    for (let i = 0; i < 6; i++){
+      const p = document.createElement('span');
+      p.className = 'confetti-particle';
+      const angle = (Math.PI * 2 * i) / 6;
+      const dist = 22 + Math.random() * 10;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      p.style.setProperty('--confetti-end', 'translate(' + dx + 'px,' + dy + 'px)');
+      p.style.background = colors[i % colors.length];
+      p.style.left = (btn.offsetLeft + btn.offsetWidth/2) + 'px';
+      p.style.top = (btn.offsetTop + btn.offsetHeight/2) + 'px';
+      btn.parentElement.appendChild(p);
+      setTimeout(() => p.remove(), 650);
+    }
+  }
+
+  function toggleFavorite(id, event){
+    event.preventDefault();
+    event.stopPropagation();
+    let favs = getFavorites();
+    const btn = event.currentTarget;
+    const nowFavorited = !favs.includes(id);
+    if (favs.includes(id)){
+      favs = favs.filter(f => f !== id);
+    } else {
+      favs.push(id);
+    }
+    saveFavorites(favs);
+    updateFavoritesUI();
+    btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+    if (nowFavorited) spawnConfetti(btn);
+    if (favoritesOnly) applyFilters();
+  }
+
+  function showFavoritesOnly(){
+    favoritesOnly = !favoritesOnly;
+    document.getElementById('nav-favorites').classList.toggle('active', favoritesOnly);
+    if (favoritesOnly){
+      activeCategory = null;
+      document.getElementById('search-input').value = '';
+    }
+    applyFilters();
+  }
+
+  function toggleMobileNav(){
+    document.querySelector('nav.links').classList.toggle('mobile-open');
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('nav.links a').forEach(a => {
+      a.addEventListener('click', () => document.querySelector('nav.links').classList.remove('mobile-open'));
+    });
+  });
+
+  function surpriseMe(){
+    favoritesOnly = false;
+    document.getElementById('nav-favorites').classList.remove('active');
+    const cards = getCards();
+    if (!cards.length) return;
+    const pick = cards[Math.floor(Math.random() * cards.length)];
+    if (location.hash === '#' + pick.id){
+      highlightFromHash();
+    } else {
+      location.hash = pick.id;
+    }
+  }
+
+  let quizCategory = null;
+  let quizBudget = null;
+
+  function quizSelectCategory(cat, btnEl){
+    quizCategory = cat;
+    document.querySelectorAll('#quiz-cat-row .quiz-btn').forEach(b => b.classList.toggle('active', b === btnEl));
+    quizRender();
+  }
+
+  function quizSelectBudget(budget, btnEl){
+    quizBudget = budget;
+    document.querySelectorAll('#quiz-budget-row .quiz-btn').forEach(b => b.classList.toggle('active', b === btnEl));
+    quizRender();
+  }
+
+  function quizRender(){
+    const resultsEl = document.getElementById('quiz-results');
+    if (!quizCategory || !quizBudget){
+      resultsEl.innerHTML = '';
+      return;
+    }
+    let matches = getCards().filter(c => c.dataset.category === quizCategory);
+    if (quizBudget !== 'any'){
+      matches = matches.filter(c => {
+        const price = getPriceValue(c);
+        if (price === null) return false;
+        if (quizBudget === 'under30') return price < 30;
+        if (quizBudget === '30to75') return price >= 30 && price <= 75;
+        if (quizBudget === 'over75') return price > 75;
+        return true;
+      });
+    }
+    if (!matches.length){
+      resultsEl.innerHTML = '<p class="quiz-empty">Nothing in that exact combo yet — try a wider budget, or <a href="#" onclick="filterByCategory(\'' + quizCategory + '\'); document.getElementById(\'top\').scrollIntoView(); return false;">browse this category</a> directly.</p>';
+      return;
+    }
+    const top3 = matches.slice(0, 3);
+    let html = '<div class="quiz-results-head">✦ Matches for you</div><div class="quiz-results-row">';
+    top3.forEach(card => {
+      const name = card.querySelector('h3').textContent;
+      const img = card.querySelector('img').src;
+      const priceEl = card.querySelector('.price');
+      const priceText = priceEl ? priceEl.textContent : '';
+      html += '<a href="#' + card.id + '" class="wn-card"><img src="' + img + '" alt=""><span class="wn-name">' + name + '</span><span class="wn-price">' + priceText + '</span></a>';
+    });
+    html += '</div>';
+    resultsEl.innerHTML = html;
+  }
+
+  function getCards(){
+    return Array.from(document.querySelectorAll('#product-grid .card'));
+  }
+
+  function animateCount(el, target){
+    const start = 0;
+    const duration = 500;
+    const startTime = performance.now();
+    function tick(now){
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 2);
+      const current = Math.round(start + (target - start) * eased);
+      el.textContent = current + ' LISTED';
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function updateCounts(){
+    const cards = getCards();
+    Object.keys(catNames).forEach(cat => {
+      const n = cards.filter(c => c.dataset.category === cat).length;
+      const el = document.querySelector('[data-count-for="' + cat + '"]');
+      if (el) animateCount(el, n);
+    });
+  }
+
+  function applyFilters(){
+    const query = document.getElementById('search-input').value.trim().toLowerCase();
+    const cards = getCards();
+    const favs = getFavorites();
+    const isBrowsingAll = !query && !activeCategory && !favoritesOnly;
+    let visible = 0;
+    let matchIndex = 0;
+    cards.forEach(card => {
+      const wasHidden = card.classList.contains('hidden');
+      let show;
+      if (favoritesOnly){
+        show = favs.includes(card.id);
+        card.classList.toggle('hidden', !show);
+        if (show){
+          visible++;
+          if (wasHidden){ card.classList.remove('entering'); void card.offsetWidth; card.classList.add('entering'); }
+        }
+        return;
+      }
+      const matchesQuery = !query || card.dataset.name.includes(query) || card.querySelector('h3').textContent.toLowerCase().includes(query);
+      const matchesCategory = !activeCategory || card.dataset.category === activeCategory;
+      show = matchesQuery && matchesCategory;
+      if (show && isBrowsingAll){
+        matchIndex++;
+        if (matchIndex > revealedCount) show = false;
+      }
+      card.classList.toggle('hidden', !show);
+      if (show){
+        visible++;
+        if (wasHidden){ card.classList.remove('entering'); void card.offsetWidth; card.classList.add('entering'); }
+      }
+    });
+    document.getElementById('no-results').classList.toggle('show', visible === 0);
+    if (favoritesOnly){
+      document.getElementById('no-results').textContent = "You haven't saved any picks yet — tap the ♡ on a product to save it here.";
+    } else {
+      document.getElementById('no-results').textContent = "No products match that search yet — try a different term or browse by category above.";
+    }
+
+    document.querySelectorAll('.cat-chip[data-cat]').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.cat === activeCategory);
+    });
+    const allChip = document.getElementById('cat-chip-all');
+    if (allChip) allChip.classList.toggle('active', !activeCategory);
+
+    const loadMoreWrap = document.getElementById('load-more-wrap');
+    if (loadMoreWrap){
+      const totalCards = cards.length;
+      loadMoreWrap.style.display = (isBrowsingAll && revealedCount < totalCards) ? 'flex' : 'none';
+    }
+
+    const statusEl = document.getElementById('search-status');
+    const clearBtn = document.getElementById('search-clear');
+    let statusParts = [];
+    if (activeCategory) statusParts.push('Category: ' + catNames[activeCategory]);
+    if (query) statusParts.push('"' + query + '"');
+    if (statusParts.length){
+      statusEl.textContent = 'Filtering by ' + statusParts.join(' + ') + ' — ' + visible + ' result' + (visible===1?'':'s');
+      clearBtn.style.display = 'inline-block';
+    } else {
+      statusEl.textContent = '';
+      clearBtn.style.display = 'none';
+    }
+  }
+
+  function getPriceValue(card){
+    const priceEl = card.querySelector('.price');
+    if (!priceEl || priceEl.classList.contains('tbd')) return null;
+    const num = parseFloat(priceEl.textContent.replace(/[^0-9.]/g, ''));
+    return isNaN(num) ? null : num;
+  }
+
+  function applySort(value){
+    const grid = document.getElementById('product-grid');
+    const cards = getCards();
+    let sorted;
+    if (value === 'newest'){
+      sorted = cards.slice().sort((a,b) => Number(b.dataset.order) - Number(a.dataset.order));
+    } else if (value === 'price-asc' || value === 'price-desc'){
+      sorted = cards.slice().sort((a,b) => {
+        const pa = getPriceValue(a);
+        const pb = getPriceValue(b);
+        if (pa === null && pb === null) return 0;
+        if (pa === null) return 1;
+        if (pb === null) return -1;
+        return value === 'price-asc' ? pa - pb : pb - pa;
+      });
+    } else {
+      sorted = cards.slice().sort((a,b) => Number(a.dataset.order) - Number(b.dataset.order));
+    }
+    sorted.forEach(card => grid.appendChild(card));
+    revealedCount = 9;
+    applyFilters();
+  }
+
+  function loadMoreProducts(){
+    revealedCount += loadIncrement;
+    applyFilters();
+  }
+
+  function filterProducts(query){
+    favoritesOnly = false;
+    document.getElementById('nav-favorites').classList.remove('active');
+    applyFilters();
+  }
+
+  function filterByCategory(cat){
+    favoritesOnly = false;
+    document.getElementById('nav-favorites').classList.remove('active');
+    activeCategory = (activeCategory === cat) ? null : cat;
+    applyFilters();
+  }
+
+  function clearSearch(){
+    document.getElementById('search-input').value = '';
+    activeCategory = null;
+    applyFilters();
+  }
+
+  function highlightFromHash(){
+    const id = decodeURIComponent(location.hash.replace('#',''));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target || !target.classList.contains('card')) return;
+    // clear any category/search/favorites filters so the target is guaranteed visible
+    favoritesOnly = false;
+    document.getElementById('nav-favorites').classList.remove('active');
+    activeCategory = null;
+    document.getElementById('search-input').value = '';
+    // make sure the target card is within the revealed batch
+    const cards = getCards();
+    const targetIndex = cards.indexOf(target) + 1;
+    if (targetIndex > revealedCount) revealedCount = targetIndex;
+    applyFilters();
+    setTimeout(() => {
+      target.scrollIntoView({behavior:'smooth', block:'center'});
+      target.classList.add('highlight');
+      setTimeout(() => target.classList.remove('highlight'), 3600);
+    }, 50);
+  }
+
+  window.addEventListener('DOMContentLoaded', highlightFromHash);
+  window.addEventListener('hashchange', highlightFromHash);
+
+  function setTimeGreeting(){
+    const hour = new Date().getHours();
+    let text;
+    if (hour < 5) text = "Late-night scrolling? Here's what's worth it";
+    else if (hour < 12) text = 'Good morning — fresh finds to start the day';
+    else if (hour < 17) text = "Good afternoon — today's worth-it picks";
+    else if (hour < 21) text = 'Evening browsing? Here\'s what\'s trending';
+    else text = "Late-night scrolling? Here's what's worth it";
+    const el = document.getElementById('hero-eyebrow');
+    if (el) el.textContent = text;
+  }
+
+  function getRecentlyViewed(){
+    try {
+      return JSON.parse(localStorage.getItem('gearscout_recently_viewed') || '[]');
+    } catch(e){ return []; }
+  }
+
+  function recordView(id){
+    let viewed = getRecentlyViewed().filter(v => v !== id);
+    viewed.unshift(id);
+    viewed = viewed.slice(0, 8);
+    localStorage.setItem('gearscout_recently_viewed', JSON.stringify(viewed));
+  }
+
+  function renderRecentlyViewed(){
+    const viewed = getRecentlyViewed();
+    const section = document.getElementById('recently-viewed');
+    const row = document.getElementById('recently-viewed-row');
+    if (!section || !row) return;
+    if (!viewed.length){ section.style.display = 'none'; return; }
+    let html = '';
+    viewed.forEach(id => {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const name = card.querySelector('h3').textContent;
+      const img = card.querySelector('img');
+      const imgSrc = img ? img.src : '';
+      const priceEl = card.querySelector('.price');
+      const priceText = priceEl ? priceEl.textContent : '';
+      html += '<a href="#' + id + '" class="wn-card"><img src="' + imgSrc + '" alt=""><span class="wn-name">' + name + '</span><span class="wn-price">' + priceText + '</span></a>';
+    });
+    if (!html){ section.style.display = 'none'; return; }
+    row.innerHTML = html;
+    section.style.display = 'block';
+  }
+
+  const productGridEl = document.getElementById('product-grid');
+  if (productGridEl){
+    productGridEl.addEventListener('click', function(e){
+      const link = e.target.closest('a.card-media, a.buy-btn');
+      if (!link) return;
+      const card = e.target.closest('.card');
+      if (card) recordView(card.id);
+    });
+  }
+
+  setTimeGreeting();
+  renderRecentlyViewed();
+  updateCounts();
+  updateFavoritesUI();
+</script>
+
+</body>
+</html>
