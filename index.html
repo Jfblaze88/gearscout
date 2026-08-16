@@ -358,57 +358,6 @@
   .fav-btn:hover{transform:scale(1.08);}
   .fav-btn.active{color: var(--orange-deep); border-color: var(--orange);}
 
-  /* ---------- compare mode ---------- */
-  .compare-check{
-    position:absolute; bottom:6px; left:6px; z-index:15;
-    display:flex; align-items:center; gap:3px;
-    background:rgba(255,255,255,0.92); border:1px solid var(--line);
-    border-radius:999px; padding:2px 7px 2px 5px; cursor:pointer;
-    font-family: var(--body); font-size:0.6rem; font-weight:600; color: var(--ink-dim);
-  }
-  .compare-check input{width:10px; height:10px; cursor:pointer; margin:0;}
-  .compare-bar{
-    position:fixed; bottom:0; left:0; right:0; z-index:60;
-    background: var(--bg); border-top:1px solid var(--line-dark);
-    padding:14px 24px; display:none; align-items:center; justify-content:center;
-    gap:16px; box-shadow: 0 -8px 20px rgba(0,0,0,0.2);
-  }
-  .compare-bar.show{display:flex;}
-  .compare-bar span{color:#F4F2EC; font-family: var(--body); font-size:0.9rem; font-weight:600;}
-  .btn-clear-compare{
-    background:none; border:none; color:#B9B7B0; font-family: var(--body);
-    font-size:0.82rem; cursor:pointer; text-decoration:underline;
-  }
-  .btn-clear-compare:hover{color:#fff;}
-  .compare-modal-backdrop{
-    position:fixed; inset:0; background:rgba(11,11,12,0.75); z-index:70;
-    display:none; align-items:center; justify-content:center; padding:20px;
-  }
-  .compare-modal-backdrop.show{display:flex;}
-  .compare-modal{
-    background:#fff; border-radius:8px; max-width:900px; width:100%;
-    max-height:85vh; overflow-y:auto; padding:28px;
-  }
-  .compare-modal-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
-  .compare-modal-head h3{font-family: var(--display); font-size:1.3rem;}
-  .compare-close{
-    background:none; border:none; font-size:1.4rem; cursor:pointer; color: var(--ink-dim);
-    width:32px; height:32px; border-radius:50%;
-  }
-  .compare-close:hover{background: var(--paper-dim);}
-  .compare-table{width:100%; border-collapse:collapse;}
-  .compare-table th, .compare-table td{
-    padding:12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;
-    font-size:0.85rem;
-  }
-  .compare-table th{font-family: var(--display); font-weight:600; width:120px; color: var(--ink-dim); font-size:0.78rem;}
-  .compare-table img{width:80px; height:80px; object-fit:contain; background: var(--paper-dim); border-radius:4px;}
-  .compare-table .cmp-name{font-family: var(--display); font-weight:600; font-size:0.92rem; margin-bottom:6px;}
-  .compare-table .cmp-price{font-family: var(--display); font-weight:700; color: var(--orange-deep);}
-  .compare-table .cmp-buy{
-    display:inline-block; margin-top:8px; background: var(--ink); color:#fff;
-    padding:6px 12px; border-radius: var(--radius); font-size:0.78rem; font-weight:600;
-  }
   .fav-btn.pop{animation: fav-pop 0.4s ease;}
   @keyframes fav-pop{
     0%{transform:scale(1);}
@@ -1704,7 +1653,6 @@
 
       <div class="card" id="roku-streaming-stick-hd" data-order="1" data-category="streaming-tv" data-name="roku streaming stick hd voice remote">
         <button class="fav-btn" data-fav-id="roku-streaming-stick-hd" onclick="toggleFavorite('roku-streaming-stick-hd', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="roku-streaming-stick-hd" onclick="toggleCompare('roku-streaming-stick-hd', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4fJxHD8" class="card-media has-img img-link" aria-label="View Roku Streaming Stick HD on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71CBWyQfKhL._AC_SL1500_.jpg" alt="Roku Streaming Stick HD with Voice Remote" loading="lazy"></a>
         <div class="card-body">
           <h3>Roku Streaming Stick HD with Voice Remote</h3>
@@ -1723,7 +1671,6 @@
 
       <div class="card" id="amazfit-bip-6" data-order="2" data-category="wearables" data-name="amazfit bip 6 smart watch">
         <button class="fav-btn" data-fav-id="amazfit-bip-6" onclick="toggleFavorite('amazfit-bip-6', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="amazfit-bip-6" onclick="toggleCompare('amazfit-bip-6', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3Sj55HW" class="card-media has-img img-link" aria-label="View Amazfit Bip 6 Smart Watch on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61UvVTN0IEL._AC_SL1500_.jpg" alt="Amazfit Bip 6 Smart Watch" loading="lazy"></a>
         <div class="card-body">
           <h3>Amazfit Bip 6 Smart Watch, 46mm</h3>
@@ -1742,7 +1689,6 @@
 
       <div class="card" id="divoom-minitoo-pixel-speaker" data-order="39" data-category="audio" data-name="divoom minitoo retro pixel computer speaker">
         <button class="fav-btn" data-fav-id="divoom-minitoo-pixel-speaker" onclick="toggleFavorite('divoom-minitoo-pixel-speaker', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="divoom-minitoo-pixel-speaker" onclick="toggleCompare('divoom-minitoo-pixel-speaker', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3UnH7M8" class="card-media has-img img-link" aria-label="View Divoom MiniToo Pixel Speaker on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71QrpZYmE9L._AC_SL1500_.jpg" alt="Divoom MiniToo Retro Pixel Speaker" loading="lazy"></a>
         <div class="card-body">
           <h3>Divoom MiniToo Pixel Speaker</h3>
@@ -1761,7 +1707,6 @@
 
       <div class="card" id="eightree-smart-plug" data-order="4" data-category="smart-home" data-name="eightree smart plug 4 pack">
         <button class="fav-btn" data-fav-id="eightree-smart-plug" onclick="toggleFavorite('eightree-smart-plug', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="eightree-smart-plug" onclick="toggleCompare('eightree-smart-plug', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3RRP0c7" class="card-media has-img img-link" aria-label="View EIGHTREE Smart Plug 4-Pack on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61QebEf4qvL._SL1500_.jpg" alt="EIGHTREE Smart Plug 4-Pack" loading="lazy"></a>
         <div class="card-body">
           <h3>EIGHTREE Smart Plug, 4-Pack</h3>
@@ -1780,7 +1725,6 @@
 
       <div class="card" id="ugreen-usb-c-hub" data-order="5" data-category="computing" data-name="ugreen usb c hub revodok 7 in 1">
         <button class="fav-btn" data-fav-id="ugreen-usb-c-hub" onclick="toggleFavorite('ugreen-usb-c-hub', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="ugreen-usb-c-hub" onclick="toggleCompare('ugreen-usb-c-hub', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4hmP7GS" class="card-media has-img img-link" aria-label="View UGREEN USB-C Hub Revodok 7-in-1 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71+xUr8fyzL._AC_SL1500_.jpg" alt="UGREEN USB-C Hub Revodok 7-in-1" loading="lazy"></a>
         <div class="card-body">
           <h3>UGREEN Revodok 7-in-1 USB-C Hub</h3>
@@ -1799,7 +1743,6 @@
 
       <div class="card" id="kvidio-anc-headphones" data-order="6" data-category="audio" data-name="kvidio active noise cancelling headphones">
         <button class="fav-btn" data-fav-id="kvidio-anc-headphones" onclick="toggleFavorite('kvidio-anc-headphones', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="kvidio-anc-headphones" onclick="toggleCompare('kvidio-anc-headphones', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4q23rqJ" class="card-media has-img img-link" aria-label="View KVIDIO ANC Headphones on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61BcRmV5jdL._AC_SL1500_.jpg" alt="KVIDIO Active Noise Cancelling Headphones" loading="lazy"></a>
         <div class="card-body">
           <h3>KVIDIO Active Noise Cancelling Headphones</h3>
@@ -1818,7 +1761,6 @@
 
       <div class="card" id="ai-smart-glasses" data-order="7" data-category="wearables" data-name="ai smart glasses with camera">
         <button class="fav-btn" data-fav-id="ai-smart-glasses" onclick="toggleFavorite('ai-smart-glasses', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="ai-smart-glasses" onclick="toggleCompare('ai-smart-glasses', event)"><span>Compare</span></label>
         <a href="https://amzn.to/45aUlyh" class="card-media has-img img-link" aria-label="View AI Smart Glasses on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61BffzadxOL._AC_SL1500_.jpg" alt="AI Smart Glasses with Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>AI Smart Glasses with Camera</h3>
@@ -1837,7 +1779,6 @@
 
       <div class="card" id="apple-watch-series-8-renewed" data-order="42" data-category="wearables" data-name="apple watch series 8 renewed gps 45mm">
         <button class="fav-btn" data-fav-id="apple-watch-series-8-renewed" onclick="toggleFavorite('apple-watch-series-8-renewed', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="apple-watch-series-8-renewed" onclick="toggleCompare('apple-watch-series-8-renewed', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4hsKPxS" class="card-media has-img img-link" aria-label="View Apple Watch Series 8 (Renewed) on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71xSYnvg7OL._AC_SL1500_.jpg" alt="Apple Watch Series 8, 45mm (Renewed)" loading="lazy"></a>
         <div class="card-body">
           <h3>Apple Watch Series 8, 45mm (Renewed)</h3>
@@ -1856,7 +1797,6 @@
 
       <div class="card" id="portable-rechargeable-fan" data-order="8" data-category="outdoor" data-name="portable fan rechargeable led lantern">
         <button class="fav-btn" data-fav-id="portable-rechargeable-fan" onclick="toggleFavorite('portable-rechargeable-fan', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="portable-rechargeable-fan" onclick="toggleCompare('portable-rechargeable-fan', event)"><span>Compare</span></label>
         <a href="https://amzn.to/45haNNl" class="card-media has-img img-link" aria-label="View Portable Rechargeable Fan on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71wT4KMzMoL._AC_SL1500_.jpg" alt="Portable Rechargeable Fan with LED Lantern" loading="lazy"></a>
         <div class="card-body">
           <h3>Portable Rechargeable Fan with LED Lantern</h3>
@@ -1875,7 +1815,6 @@
 
       <div class="card" id="kasa-pan-tilt-security-camera" data-order="9" data-category="smart-home" data-name="kasa 1080p indoor pan tilt security camera">
         <button class="fav-btn" data-fav-id="kasa-pan-tilt-security-camera" onclick="toggleFavorite('kasa-pan-tilt-security-camera', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="kasa-pan-tilt-security-camera" onclick="toggleCompare('kasa-pan-tilt-security-camera', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4q1DSG1" class="card-media has-img img-link" aria-label="View Kasa Pan/Tilt Security Camera on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/51oao7xTT8L._AC_SL1500_.jpg" alt="Kasa 1080p Indoor Pan/Tilt Security Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>Kasa 1080p Indoor Pan/Tilt Security Camera</h3>
@@ -1894,7 +1833,6 @@
 
       <div class="card" id="3-in-1-charging-stand" data-order="10" data-category="charging" data-name="charging stand for watch iphone earbuds">
         <button class="fav-btn" data-fav-id="3-in-1-charging-stand" onclick="toggleFavorite('3-in-1-charging-stand', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="3-in-1-charging-stand" onclick="toggleCompare('3-in-1-charging-stand', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wMw9OC" class="card-media has-img img-link" aria-label="View 3-in-1 Charging Stand on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/713nIdPKuZL._AC_SL1500_.jpg" alt="Charging Stand for Watch, iPhone & Earbuds" loading="lazy"></a>
         <div class="card-body">
           <h3>Charging Stand for Watch, iPhone &amp; Earbuds</h3>
@@ -1913,7 +1851,6 @@
 
       <div class="card" id="lisen-magsafe-car-mount" data-order="46" data-category="charging" data-name="lisen 15w magsafe car mount charger">
         <button class="fav-btn" data-fav-id="lisen-magsafe-car-mount" onclick="toggleFavorite('lisen-magsafe-car-mount', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="lisen-magsafe-car-mount" onclick="toggleCompare('lisen-magsafe-car-mount', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xDE558" class="card-media has-img img-link" aria-label="View LISEN MagSafe Car Mount on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61UdigRz7xL._AC_SL1024_.jpg" alt="LISEN 15W MagSafe Car Mount Charger" loading="lazy"></a>
         <div class="card-body">
           <h3>LISEN 15W MagSafe Car Mount Charger</h3>
@@ -1932,7 +1869,6 @@
 
       <div class="card" id="fly2sky-camping-lights" data-order="11" data-category="outdoor" data-name="fly2sky portable led camping lights 4 pack">
         <button class="fav-btn" data-fav-id="fly2sky-camping-lights" onclick="toggleFavorite('fly2sky-camping-lights', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="fly2sky-camping-lights" onclick="toggleCompare('fly2sky-camping-lights', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4g5bQ8b" class="card-media has-img img-link" aria-label="View FLY2SKY Portable LED Camping Lights on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61pYkROrdeL._AC_SL1500_.jpg" alt="FLY2SKY Portable LED Camping Lights, 4-Pack" loading="lazy"></a>
         <div class="card-body">
           <h3>FLY2SKY Portable LED Camping Lights, 4-Pack</h3>
@@ -1951,7 +1887,6 @@
 
       <div class="card" id="rechargeable-camping-lantern" data-order="12" data-category="outdoor" data-name="camping lantern rechargeable flashlight emergency light">
         <button class="fav-btn" data-fav-id="rechargeable-camping-lantern" onclick="toggleFavorite('rechargeable-camping-lantern', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="rechargeable-camping-lantern" onclick="toggleCompare('rechargeable-camping-lantern', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xo4gfO" class="card-media has-img img-link" aria-label="View Rechargeable Camping Lantern on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71Q6XkzJHTL._AC_SL1500_.jpg" alt="Rechargeable Camping Lantern & Flashlight" loading="lazy"></a>
         <div class="card-body">
           <h3>Rechargeable Camping Lantern &amp; Flashlight</h3>
@@ -1970,7 +1905,6 @@
 
       <div class="card" id="4k-night-vision-goggles" data-order="13" data-category="outdoor" data-name="4k night vision goggles digital">
         <button class="fav-btn" data-fav-id="4k-night-vision-goggles" onclick="toggleFavorite('4k-night-vision-goggles', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="4k-night-vision-goggles" onclick="toggleCompare('4k-night-vision-goggles', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wNMcMp" class="card-media has-img img-link" aria-label="View 4K Night Vision Goggles on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/813Y1mvdYTL._AC_SL1500_.jpg" alt="4K Night Vision Goggles" loading="lazy"></a>
         <div class="card-body">
           <h3>4K Digital Night Vision Goggles</h3>
@@ -1989,7 +1923,6 @@
 
       <div class="card" id="kodak-pixpro-fz55" data-order="14" data-category="cameras" data-name="kodak pixpro fz55 digital camera">
         <button class="fav-btn" data-fav-id="kodak-pixpro-fz55" onclick="toggleFavorite('kodak-pixpro-fz55', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="kodak-pixpro-fz55" onclick="toggleCompare('kodak-pixpro-fz55', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xtBMkX" class="card-media has-img img-link" aria-label="View KODAK PIXPRO FZ55 Camera on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81swjZCbdiL._AC_SL1500_.jpg" alt="KODAK PIXPRO FZ55 Compact Digital Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>KODAK PIXPRO FZ55 Compact Digital Camera</h3>
@@ -2008,7 +1941,6 @@
 
       <div class="card" id="eufy-solocam-s220" data-order="15" data-category="smart-home" data-name="eufy security solocam s220 solar camera">
         <button class="fav-btn" data-fav-id="eufy-solocam-s220" onclick="toggleFavorite('eufy-solocam-s220', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="eufy-solocam-s220" onclick="toggleCompare('eufy-solocam-s220', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wIDLSh" class="card-media has-img img-link" aria-label="View eufy SoloCam S220 Solar Camera on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71oSxJycVlL._AC_SL1500_.jpg" alt="eufy Security SoloCam S220 Solar Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>eufy SoloCam S220 Solar Security Camera</h3>
@@ -2027,7 +1959,6 @@
 
       <div class="card" id="bluetooth-tracker-tags-2pack" data-order="41" data-category="smart-home" data-name="bluetooth tracker tags find my 2 pack">
         <button class="fav-btn" data-fav-id="bluetooth-tracker-tags-2pack" onclick="toggleFavorite('bluetooth-tracker-tags-2pack', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="bluetooth-tracker-tags-2pack" onclick="toggleCompare('bluetooth-tracker-tags-2pack', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4gpfaMD" class="card-media has-img img-link" aria-label="View Bluetooth Tracker Tags 2-Pack on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/519N2nFhAoL._AC_SL1500_.jpg" alt="Bluetooth Tracker Tags, 2-Pack" loading="lazy"></a>
         <div class="card-body">
           <h3>Bluetooth Tracker Tags, 2-Pack</h3>
@@ -2046,7 +1977,6 @@
 
       <div class="card" id="tikom-g8000-robot-vacuum" data-order="50" data-category="smart-home" data-name="tikom robot vacuum mop combo g8000">
         <button class="fav-btn" data-fav-id="tikom-g8000-robot-vacuum" onclick="toggleFavorite('tikom-g8000-robot-vacuum', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="tikom-g8000-robot-vacuum" onclick="toggleCompare('tikom-g8000-robot-vacuum', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wq0bHc" class="card-media has-img img-link" aria-label="View Tikom G8000 Robot Vacuum on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71lOhFFaWuL._AC_SL1500_.jpg" alt="Tikom G8000 Robot Vacuum and Mop Combo" loading="lazy"></a>
         <div class="card-body">
           <h3>Tikom G8000 Robot Vacuum &amp; Mop Combo</h3>
@@ -2065,7 +1995,6 @@
 
       <div class="card" id="beginner-fpv-drone" data-order="16" data-category="cameras" data-name="drone with camera beginner 2k fpv">
         <button class="fav-btn" data-fav-id="beginner-fpv-drone" onclick="toggleFavorite('beginner-fpv-drone', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="beginner-fpv-drone" onclick="toggleCompare('beginner-fpv-drone', event)"><span>Compare</span></label>
         <a href="https://amzn.to/45Ux57L" class="card-media has-img img-link" aria-label="View Beginner FPV Drone on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81a7QAIa0PL._AC_SL1500_.jpg" alt="Beginner FPV Drone with 2K Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>Beginner FPV Drone with 2K Camera</h3>
@@ -2084,7 +2013,6 @@
 
       <div class="card" id="electric-water-guns-2pack" data-order="17" data-category="outdoor" data-name="electric water guns automatic 2 pack">
         <button class="fav-btn" data-fav-id="electric-water-guns-2pack" onclick="toggleFavorite('electric-water-guns-2pack', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="electric-water-guns-2pack" onclick="toggleCompare('electric-water-guns-2pack', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xocHaY" class="card-media has-img img-link" aria-label="View Electric Water Guns 2-Pack on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71V++cCqoHL._AC_SL1500_.jpg" alt="Electric Water Guns, 2-Pack" loading="lazy"></a>
         <div class="card-body">
           <h3>Electric Water Guns, 2-Pack</h3>
@@ -2103,7 +2031,6 @@
 
       <div class="card" id="nelko-pp01-photo-printer" data-order="18" data-category="cameras" data-name="nelko pp01 portable photo printer">
         <button class="fav-btn" data-fav-id="nelko-pp01-photo-printer" onclick="toggleFavorite('nelko-pp01-photo-printer', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="nelko-pp01-photo-printer" onclick="toggleCompare('nelko-pp01-photo-printer', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4fHGA00" class="card-media has-img img-link" aria-label="View Nelko PP01 Photo Printer on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81IOl8ng5CL._AC_SL1500_.jpg" alt="Nelko PP01 Portable Photo Printer" loading="lazy"></a>
         <div class="card-body">
           <h3>Nelko PP01 Portable Photo Printer</h3>
@@ -2122,7 +2049,6 @@
 
       <div class="card" id="fujifilm-instax-mini-12" data-order="19" data-category="cameras" data-name="fujifilm instax mini 12 instant camera">
         <button class="fav-btn" data-fav-id="fujifilm-instax-mini-12" onclick="toggleFavorite('fujifilm-instax-mini-12', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="fujifilm-instax-mini-12" onclick="toggleCompare('fujifilm-instax-mini-12', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xxQuHK" class="card-media has-img img-link" aria-label="View Fujifilm Instax Mini 12 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/51BCl6AKK-L._AC_SL1200_.jpg" alt="Fujifilm Instax Mini 12 Instant Camera" loading="lazy"></a>
         <div class="card-body">
           <h3>Fujifilm Instax Mini 12 Instant Camera</h3>
@@ -2141,7 +2067,6 @@
 
       <div class="card" id="wireless-earbuds-bt54" data-order="20" data-category="audio" data-name="wireless earbuds bluetooth 5.4 waterproof">
         <button class="fav-btn" data-fav-id="wireless-earbuds-bt54" onclick="toggleFavorite('wireless-earbuds-bt54', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="wireless-earbuds-bt54" onclick="toggleCompare('wireless-earbuds-bt54', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3SjZy3S" class="card-media has-img img-link" aria-label="View Wireless Earbuds Bluetooth 5.4 on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/61HyQ94QVGL._AC_SL1500_.jpg" alt="Wireless Earbuds, Bluetooth 5.4" loading="lazy"></a>
         <div class="card-body">
           <h3>Wireless Earbuds, Bluetooth 5.4</h3>
@@ -2160,7 +2085,6 @@
 
       <div class="card" id="ipx5-waterproof-bt-speaker" data-order="38" data-category="audio" data-name="portable bluetooth speaker waterproof beach">
         <button class="fav-btn" data-fav-id="ipx5-waterproof-bt-speaker" onclick="toggleFavorite('ipx5-waterproof-bt-speaker', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="ipx5-waterproof-bt-speaker" onclick="toggleCompare('ipx5-waterproof-bt-speaker', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4fOdpsj" class="card-media has-img img-link" aria-label="View IPX5 Waterproof Bluetooth Speaker on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/81HnNTYoCSL._AC_SL1500_.jpg" alt="Portable Waterproof Bluetooth Speaker" loading="lazy"></a>
         <div class="card-body">
           <h3>Portable Waterproof Bluetooth Speaker</h3>
@@ -2179,7 +2103,6 @@
 
       <div class="card" id="anker-nano-power-bank" data-order="3" data-category="charging" data-name="anker nano power bank 10000mah">
         <button class="fav-btn" data-fav-id="anker-nano-power-bank" onclick="toggleFavorite('anker-nano-power-bank', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="anker-nano-power-bank" onclick="toggleCompare('anker-nano-power-bank', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4q48BCg" class="card-media has-img img-link" aria-label="View Anker Nano Power Bank on Amazon"><img src="https://m.media-amazon.com/images/I/71VBsjWGp1L._AC_SL1500_.jpg" alt="Anker Nano Power Bank 10000mAh" loading="lazy"></a>
         <div class="card-body">
           <h3>Anker Nano Power Bank, 10,000mAh 30W</h3>
@@ -2198,7 +2121,6 @@
 
       <div class="card" id="mnn-15-6-portable-monitor" data-order="21" data-category="computing" data-name="mnn 15.6 portable monitor usb-c hdmi">
         <button class="fav-btn" data-fav-id="mnn-15-6-portable-monitor" onclick="toggleFavorite('mnn-15-6-portable-monitor', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="mnn-15-6-portable-monitor" onclick="toggleCompare('mnn-15-6-portable-monitor', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4zlMmwa" class="card-media has-img img-link" aria-label="View MNN 15.6 Portable Monitor on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81Q9vMNUOyL._AC_SL1500_.jpg" alt="MNN 15.6-inch Portable Monitor" loading="lazy"></a>
         <div class="card-body">
           <h3>MNN 15.6" Portable Monitor</h3>
@@ -2217,7 +2139,6 @@
 
       <div class="card" id="gskyer-70mm-telescope" data-order="22" data-category="outdoor" data-name="gskyer telescope 70mm aperture travel">
         <button class="fav-btn" data-fav-id="gskyer-70mm-telescope" onclick="toggleFavorite('gskyer-70mm-telescope', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="gskyer-70mm-telescope" onclick="toggleCompare('gskyer-70mm-telescope', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wJCD0R" class="card-media has-img img-link" aria-label="View Gskyer 70mm Telescope on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71cb2RCy+aL._AC_SL1500_.jpg" alt="Gskyer 70mm Travel Telescope" loading="lazy"></a>
         <div class="card-body">
           <h3>Gskyer 70mm Travel Telescope</h3>
@@ -2236,7 +2157,6 @@
 
       <div class="card" id="aurzen-roku-tv-projector" data-order="23" data-category="streaming-tv" data-name="aurzen roku tv d1r portable outdoor projector">
         <button class="fav-btn" data-fav-id="aurzen-roku-tv-projector" onclick="toggleFavorite('aurzen-roku-tv-projector', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="aurzen-roku-tv-projector" onclick="toggleCompare('aurzen-roku-tv-projector', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wi7Cjx" class="card-media has-img img-link" aria-label="View Aurzen Roku TV Portable Projector on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71M3XVYabdL._AC_SL1500_.jpg" alt="Aurzen Roku TV D1R Portable Projector" loading="lazy"></a>
         <div class="card-body">
           <h3>Aurzen Roku TV D1R Portable Projector</h3>
@@ -2255,7 +2175,6 @@
 
       <div class="card" id="samsung-32-inch-f6000-smart-tv" data-order="24" data-category="streaming-tv" data-name="samsung 32 inch full hd f6000 smart tv">
         <button class="fav-btn" data-fav-id="samsung-32-inch-f6000-smart-tv" onclick="toggleFavorite('samsung-32-inch-f6000-smart-tv', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="samsung-32-inch-f6000-smart-tv" onclick="toggleCompare('samsung-32-inch-f6000-smart-tv', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4giPP70" class="card-media has-img img-link" aria-label="View Samsung 32-Inch F6000 Smart TV on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71mXcPOmS4L._AC_SL1500_.jpg" alt="Samsung 32-Inch F6000 Smart TV" loading="lazy"></a>
         <div class="card-body">
           <h3>Samsung 32" F6000 Smart TV</h3>
@@ -2274,7 +2193,6 @@
 
       <div class="card" id="toloco-massage-gun" data-order="25" data-category="wellness" data-name="toloco massage gun percussion deep tissue">
         <button class="fav-btn" data-fav-id="toloco-massage-gun" onclick="toggleFavorite('toloco-massage-gun', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="toloco-massage-gun" onclick="toggleCompare('toloco-massage-gun', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4g11BBJ" class="card-media has-img img-link" aria-label="View TOLOCO Massage Gun on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/710+ET1Dk6L._AC_SL1500_.jpg" alt="TOLOCO Massage Gun" loading="lazy"></a>
         <div class="card-body">
           <h3>TOLOCO Percussion Massage Gun</h3>
@@ -2293,7 +2211,6 @@
 
       <div class="card" id="gugttr-under-desk-elliptical" data-order="26" data-category="wellness" data-name="gugttr under desk elliptical leg exerciser">
         <button class="fav-btn" data-fav-id="gugttr-under-desk-elliptical" onclick="toggleFavorite('gugttr-under-desk-elliptical', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="gugttr-under-desk-elliptical" onclick="toggleCompare('gugttr-under-desk-elliptical', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3RRxdlj" class="card-media has-img img-link" aria-label="View GUGTTR Under Desk Elliptical on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71IZKtowSJL._AC_SL1500_.jpg" alt="GUGTTR Under Desk Elliptical Machine" loading="lazy"></a>
         <div class="card-body">
           <h3>GUGTTR Under Desk Elliptical Machine</h3>
@@ -2312,7 +2229,6 @@
 
       <div class="card" id="gootop-bug-zapper" data-order="27" data-category="outdoor" data-name="gootop bug zapper mosquito outdoor">
         <button class="fav-btn" data-fav-id="gootop-bug-zapper" onclick="toggleFavorite('gootop-bug-zapper', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="gootop-bug-zapper" onclick="toggleCompare('gootop-bug-zapper', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xr82Fb" class="card-media has-img img-link" aria-label="View GOOTOP Bug Zapper on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71fATgj5scL._AC_SL1500_.jpg" alt="GOOTOP Bug Zapper Outdoor" loading="lazy"></a>
         <div class="card-body">
           <h3>GOOTOP Bug Zapper</h3>
@@ -2331,7 +2247,6 @@
 
       <div class="card" id="indoor-fruit-fly-trap" data-order="35" data-category="outdoor" data-name="fly trap indoor fruit fly gnat killer">
         <button class="fav-btn" data-fav-id="indoor-fruit-fly-trap" onclick="toggleFavorite('indoor-fruit-fly-trap', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="indoor-fruit-fly-trap" onclick="toggleCompare('indoor-fruit-fly-trap', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4fNRfq5" class="card-media has-img img-link" aria-label="View Indoor Fly Trap on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71lVTUcsIgL._AC_SL1500_.jpg" alt="Indoor Fruit Fly Trap" loading="lazy"></a>
         <div class="card-body">
           <h3>Indoor Fruit Fly &amp; Gnat Trap</h3>
@@ -2350,7 +2265,6 @@
 
       <div class="card" id="ultrasonic-pest-repeller" data-order="36" data-category="outdoor" data-name="indoor ultrasonic pest repeller rodent">
         <button class="fav-btn" data-fav-id="ultrasonic-pest-repeller" onclick="toggleFavorite('ultrasonic-pest-repeller', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="ultrasonic-pest-repeller" onclick="toggleCompare('ultrasonic-pest-repeller', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4g6AHsf" class="card-media has-img img-link" aria-label="View Ultrasonic Pest Repeller on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/61SBMbbEz4L._AC_SL1500_.jpg" alt="Indoor Ultrasonic Pest Repeller" loading="lazy"></a>
         <div class="card-body">
           <h3>Indoor Ultrasonic Pest Repeller</h3>
@@ -2369,7 +2283,6 @@
 
       <div class="card" id="philips-norelco-3600-shaver" data-order="28" data-category="wellness" data-name="philips norelco 3600 electric shaver">
         <button class="fav-btn" data-fav-id="philips-norelco-3600-shaver" onclick="toggleFavorite('philips-norelco-3600-shaver', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="philips-norelco-3600-shaver" onclick="toggleCompare('philips-norelco-3600-shaver', event)"><span>Compare</span></label>
         <a href="https://amzn.to/45frfOk" class="card-media has-img img-link" aria-label="View Philips Norelco 3600 Shaver on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/81Put+7GnuL._AC_SL1500_.jpg" alt="Philips Norelco 3600 Electric Shaver" loading="lazy"></a>
         <div class="card-body">
           <h3>Philips Norelco 3600 Electric Shaver</h3>
@@ -2388,7 +2301,6 @@
 
       <div class="card" id="thermomaven-electric-grinder-set" data-order="29" data-category="kitchen" data-name="thermomaven electric salt pepper grinder set">
         <button class="fav-btn" data-fav-id="thermomaven-electric-grinder-set" onclick="toggleFavorite('thermomaven-electric-grinder-set', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="thermomaven-electric-grinder-set" onclick="toggleCompare('thermomaven-electric-grinder-set', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xsUOYu" class="card-media has-img img-link" aria-label="View ThermoMaven Electric Grinder Set on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/81EZWQYOt1L._AC_SL1500_.jpg" alt="ThermoMaven Electric Salt and Pepper Grinder Set" loading="lazy"></a>
         <div class="card-body">
           <h3>ThermoMaven Electric Salt &amp; Pepper Grinder Set</h3>
@@ -2407,7 +2319,6 @@
 
       <div class="card" id="lenovo-idea-tab-11" data-order="30" data-category="computing" data-name="lenovo idea tab 11 college tablet">
         <button class="fav-btn" data-fav-id="lenovo-idea-tab-11" onclick="toggleFavorite('lenovo-idea-tab-11', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="lenovo-idea-tab-11" onclick="toggleCompare('lenovo-idea-tab-11', event)"><span>Compare</span></label>
         <a href="https://amzn.to/45gsQU0" class="card-media has-img img-link" aria-label="View Lenovo Idea Tab 11 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61-7FkUAw-L._AC_SL1500_.jpg" alt="Lenovo Idea Tab 11-inch College Tablet" loading="lazy"></a>
         <div class="card-body">
           <h3>Lenovo Idea Tab 11" College Tablet</h3>
@@ -2426,7 +2337,6 @@
 
       <div class="card" id="wolfbox-megaflow-50-air-duster" data-order="31" data-category="computing" data-name="wolfbox megaflow 50 compressed air duster">
         <button class="fav-btn" data-fav-id="wolfbox-megaflow-50-air-duster" onclick="toggleFavorite('wolfbox-megaflow-50-air-duster', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="wolfbox-megaflow-50-air-duster" onclick="toggleCompare('wolfbox-megaflow-50-air-duster', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4z5z3zN" class="card-media has-img img-link" aria-label="View WOLFBOX MegaFlow 50 Air Duster on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/713BEhBxXWL._AC_SL1500_.jpg" alt="WOLFBOX MegaFlow 50 Compressed Air Duster" loading="lazy"></a>
         <div class="card-body">
           <h3>WOLFBOX MegaFlow 50 Air Duster</h3>
@@ -2445,7 +2355,6 @@
 
       <div class="card" id="oral-b-io-series-3" data-order="32" data-category="wellness" data-name="oral-b io series 3 electric toothbrush">
         <button class="fav-btn" data-fav-id="oral-b-io-series-3" onclick="toggleFavorite('oral-b-io-series-3', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="oral-b-io-series-3" onclick="toggleCompare('oral-b-io-series-3', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4g5CvBH" class="card-media has-img img-link" aria-label="View Oral-B iO Series 3 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/716aBZ5fzEL._AC_SL1500_.jpg" alt="Oral-B iO Series 3 Electric Toothbrush" loading="lazy"></a>
         <div class="card-body">
           <h3>Oral-B iO Series 3 Electric Toothbrush</h3>
@@ -2464,7 +2373,6 @@
 
       <div class="card" id="mirakel-heat-neck-massager" data-order="37" data-category="wellness" data-name="mirakel heat neck massager pain relief">
         <button class="fav-btn" data-fav-id="mirakel-heat-neck-massager" onclick="toggleFavorite('mirakel-heat-neck-massager', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="mirakel-heat-neck-massager" onclick="toggleCompare('mirakel-heat-neck-massager', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wOEIbP" class="card-media has-img img-link" aria-label="View Mirakel Heat Neck Massager on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/816iTKz9sAL._AC_SL1500_.jpg" alt="Mirakel Heat Neck Massager" loading="lazy"></a>
         <div class="card-body">
           <h3>Mirakel Heat Neck Massager</h3>
@@ -2483,7 +2391,6 @@
 
       <div class="card" id="olov-electric-body-trimmer" data-order="51" data-category="wellness" data-name="olov electric body hair trimmer groin">
         <button class="fav-btn" data-fav-id="olov-electric-body-trimmer" onclick="toggleFavorite('olov-electric-body-trimmer', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="olov-electric-body-trimmer" onclick="toggleCompare('olov-electric-body-trimmer', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4xD39Ji" class="card-media has-img img-link" aria-label="View OLOV Electric Body Trimmer on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/514WuS5ldsL._AC_SL1500_.jpg" alt="OLOV Electric Body Hair Trimmer" loading="lazy"></a>
         <div class="card-body">
           <h3>OLOV Electric Body Trimmer</h3>
@@ -2502,7 +2409,6 @@
 
       <div class="card" id="fanttik-e1-max-screwdriver" data-order="33" data-category="computing" data-name="fanttik e1 max precision electric screwdriver">
         <button class="fav-btn" data-fav-id="fanttik-e1-max-screwdriver" onclick="toggleFavorite('fanttik-e1-max-screwdriver', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="fanttik-e1-max-screwdriver" onclick="toggleCompare('fanttik-e1-max-screwdriver', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3U7bxSR" class="card-media has-img img-link" aria-label="View Fanttik E1 Max Precision Screwdriver on Amazon"><span class="badge">NEW</span><img src="https://m.media-amazon.com/images/I/71eqWLbXipL._AC_SL1500_.jpg" alt="Fanttik E1 Max Precision Electric Screwdriver" loading="lazy"></a>
         <div class="card-body">
           <h3>Fanttik E1 Max Precision Screwdriver Set</h3>
@@ -2521,7 +2427,6 @@
 
       <div class="card" id="kamrui-ak1plus-mini-pc" data-order="40" data-category="computing" data-name="kamrui ak1plus mini pc celeron n5095">
         <button class="fav-btn" data-fav-id="kamrui-ak1plus-mini-pc" onclick="toggleFavorite('kamrui-ak1plus-mini-pc', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="kamrui-ak1plus-mini-pc" onclick="toggleCompare('kamrui-ak1plus-mini-pc', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4bFyS42" class="card-media has-img img-link" aria-label="View KAMRUI AK1PLUS Mini PC on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61Oin9rv3RL._AC_SL1500_.jpg" alt="KAMRUI AK1PLUS Mini PC" loading="lazy"></a>
         <div class="card-body">
           <h3>KAMRUI AK1PLUS Mini PC</h3>
@@ -2540,7 +2445,6 @@
 
       <div class="card" id="wegear-4k-webcam" data-order="43" data-category="computing" data-name="wegear 4k webcam usb-a pc">
         <button class="fav-btn" data-fav-id="wegear-4k-webcam" onclick="toggleFavorite('wegear-4k-webcam', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="wegear-4k-webcam" onclick="toggleCompare('wegear-4k-webcam', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4qcMaLB" class="card-media has-img img-link" aria-label="View WeGear 4K Webcam on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/71RnVaohnEL._AC_SL1500_.jpg" alt="WeGear 4K Webcam for PC" loading="lazy"></a>
         <div class="card-body">
           <h3>WeGear 4K Webcam for PC</h3>
@@ -2559,7 +2463,6 @@
 
       <div class="card" id="usb-c-lavalier-microphone" data-order="44" data-category="computing" data-name="usb c lavalier wireless mini mic content creator">
         <button class="fav-btn" data-fav-id="usb-c-lavalier-microphone" onclick="toggleFavorite('usb-c-lavalier-microphone', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="usb-c-lavalier-microphone" onclick="toggleCompare('usb-c-lavalier-microphone', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wLSkEK" class="card-media has-img img-link" aria-label="View USB-C Lavalier Microphone on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/81WxGdDXQnL._AC_SL1500_.jpg" alt="USB-C Lavalier Microphone" loading="lazy"></a>
         <div class="card-body">
           <h3>USB-C Lavalier Microphone</h3>
@@ -2578,7 +2481,6 @@
 
       <div class="card" id="aula-f75-pro-keyboard" data-order="45" data-category="gaming" data-name="aula f75 pro wireless mechanical keyboard">
         <button class="fav-btn" data-fav-id="aula-f75-pro-keyboard" onclick="toggleFavorite('aula-f75-pro-keyboard', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="aula-f75-pro-keyboard" onclick="toggleCompare('aula-f75-pro-keyboard', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3SngYg1" class="card-media has-img img-link" aria-label="View AULA F75 Pro Mechanical Keyboard on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61MC8BK0w0L._AC_SL1500_.jpg" alt="AULA F75 Pro Wireless Mechanical Keyboard" loading="lazy"></a>
         <div class="card-body">
           <h3>AULA F75 Pro Mechanical Keyboard</h3>
@@ -2597,7 +2499,6 @@
 
       <div class="card" id="razer-basilisk-v3" data-order="47" data-category="gaming" data-name="razer basilisk v3 gaming mouse">
         <button class="fav-btn" data-fav-id="razer-basilisk-v3" onclick="toggleFavorite('razer-basilisk-v3', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="razer-basilisk-v3" onclick="toggleCompare('razer-basilisk-v3', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3TP9jaI" class="card-media has-img img-link" aria-label="View Razer Basilisk V3 on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/61AcT0ZuO3L._AC_SL1500_.jpg" alt="Razer Basilisk V3 Gaming Mouse" loading="lazy"></a>
         <div class="card-body">
           <h3>Razer Basilisk V3 Gaming Mouse</h3>
@@ -2616,7 +2517,6 @@
 
       <div class="card" id="aoc-wireless-gaming-headset" data-order="48" data-category="gaming" data-name="aoc wireless gaming headset ps5">
         <button class="fav-btn" data-fav-id="aoc-wireless-gaming-headset" onclick="toggleFavorite('aoc-wireless-gaming-headset', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="aoc-wireless-gaming-headset" onclick="toggleCompare('aoc-wireless-gaming-headset', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3S5PYBr" class="card-media has-img img-link" aria-label="View AOC Wireless Gaming Headset on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/71IbmKSmsuL._AC_SL1500_.jpg" alt="AOC Wireless Gaming Headset" loading="lazy"></a>
         <div class="card-body">
           <h3>AOC Wireless Gaming Headset</h3>
@@ -2635,7 +2535,6 @@
 
       <div class="card" id="redtiger-f7n-dashcam" data-order="49" data-category="computing" data-name="redtiger 4k starvis 2 dashcam front rear">
         <button class="fav-btn" data-fav-id="redtiger-f7n-dashcam" onclick="toggleFavorite('redtiger-f7n-dashcam', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="redtiger-f7n-dashcam" onclick="toggleCompare('redtiger-f7n-dashcam', event)"><span>Compare</span></label>
         <a href="https://amzn.to/4wgO6Ux" class="card-media has-img img-link" aria-label="View REDTIGER F7N Dashcam on Amazon"><span class="badge">TOP PICK</span><img src="https://m.media-amazon.com/images/I/716yL7ENIjL._AC_SL1500_.jpg" alt="REDTIGER 4K Dashcam Front and Rear" loading="lazy"></a>
         <div class="card-body">
           <h3>REDTIGER 4K Dashcam, Front &amp; Rear</h3>
@@ -2654,7 +2553,6 @@
 
       <div class="card" id="blackdecker-cordless-screwdriver" data-order="34" data-category="tools" data-name="black+decker cordless screwdriver led light">
         <button class="fav-btn" data-fav-id="blackdecker-cordless-screwdriver" onclick="toggleFavorite('blackdecker-cordless-screwdriver', event)" aria-label="Save to favorites">♡</button>
-        <label class="compare-check"><input type="checkbox" data-compare-id="blackdecker-cordless-screwdriver" onclick="toggleCompare('blackdecker-cordless-screwdriver', event)"><span>Compare</span></label>
         <a href="https://amzn.to/3Umnlk9" class="card-media has-img img-link" aria-label="View BLACK+DECKER Cordless Screwdriver on Amazon"><span class="badge">BUDGET</span><img src="https://m.media-amazon.com/images/I/71NR6Gs2tPL._AC_SL1500_.jpg" alt="BLACK+DECKER Cordless Screwdriver with LED Light" loading="lazy"></a>
         <div class="card-body">
           <h3>BLACK+DECKER Cordless Screwdriver</h3>
@@ -2965,82 +2863,6 @@
       document.getElementById('search-input').value = '';
     }
     applyFilters();
-  }
-
-  let compareList = [];
-  const compareMax = 3;
-
-  function toggleCompare(id, event){
-    event.stopPropagation();
-    const idx = compareList.indexOf(id);
-    if (idx > -1){
-      compareList.splice(idx, 1);
-    } else {
-      if (compareList.length >= compareMax){
-        event.target.checked = false;
-        alert('You can compare up to ' + compareMax + ' products at once. Remove one first.');
-        return;
-      }
-      compareList.push(id);
-    }
-    updateCompareBar();
-  }
-
-  function updateCompareBar(){
-    const bar = document.getElementById('compare-bar');
-    const text = document.getElementById('compare-count-text');
-    document.querySelectorAll('[data-compare-id]').forEach(cb => {
-      cb.checked = compareList.includes(cb.dataset.compareId);
-    });
-    if (compareList.length >= 2){
-      bar.classList.add('show');
-      text.textContent = compareList.length + ' selected';
-    } else {
-      bar.classList.remove('show');
-    }
-  }
-
-  function clearCompare(){
-    compareList = [];
-    updateCompareBar();
-    closeCompareModal();
-  }
-
-  function openCompareModal(){
-    const body = document.getElementById('compare-modal-body');
-    const cards = compareList.map(id => document.getElementById(id)).filter(Boolean);
-    if (cards.length < 2) return;
-
-    // gather all unique spec labels across selected products, preserving order of first appearance
-    const specSets = cards.map(card => Array.from(card.querySelectorAll('.spec-pill')).map(s => s.textContent));
-    let html = '<table class="compare-table"><tr><th></th>';
-    cards.forEach(card => {
-      const name = card.querySelector('h3').textContent;
-      const img = card.querySelector('img').src;
-      const priceEl = card.querySelector('.price');
-      const buyBtn = card.querySelector('.buy-btn');
-      html += '<td><img src="' + img + '" alt=""><div class="cmp-name">' + name + '</div>' +
-        '<div class="cmp-price">' + (priceEl ? priceEl.textContent : '') + '</div>' +
-        '<a href="' + (buyBtn ? buyBtn.href : '#') + '" class="cmp-buy">View on Amazon</a></td>';
-    });
-    html += '</tr>';
-
-    const maxSpecs = Math.max(...specSets.map(s => s.length), 0);
-    for (let i = 0; i < maxSpecs; i++){
-      html += '<tr><th>Spec ' + (i+1) + '</th>';
-      specSets.forEach(specs => {
-        html += '<td>' + (specs[i] || '—') + '</td>';
-      });
-      html += '</tr>';
-    }
-    html += '</table>';
-
-    body.innerHTML = html;
-    document.getElementById('compare-modal-backdrop').classList.add('show');
-  }
-
-  function closeCompareModal(){
-    document.getElementById('compare-modal-backdrop').classList.remove('show');
   }
 
   function toggleFaq(btn){
@@ -3368,21 +3190,7 @@
   updateFavoritesUI();
 </script>
 
-<div class="compare-bar" id="compare-bar">
-  <span id="compare-count-text">0 selected</span>
-  <button class="btn btn-primary" onclick="openCompareModal()" style="padding:8px 18px; font-size:0.85rem;">Compare</button>
-  <button class="btn-clear-compare" onclick="clearCompare()">Clear</button>
-</div>
 
-<div class="compare-modal-backdrop" id="compare-modal-backdrop" onclick="if(event.target===this) closeCompareModal()">
-  <div class="compare-modal">
-    <div class="compare-modal-head">
-      <h3>Compare Products</h3>
-      <button class="compare-close" onclick="closeCompareModal()">✕</button>
-    </div>
-    <div id="compare-modal-body"></div>
-  </div>
-</div>
 
 </body>
 </html>
