@@ -543,43 +543,114 @@
     html{scroll-behavior:auto;}
     *{transition:none !important;}
   }
+
+  /* ---------- share widget ---------- */
+  #share-fab{
+    position:fixed; left:20px; bottom:20px; z-index:900;
+    background: var(--bg); color:#F4F2EC; border:1px solid var(--line-dark);
+    font-family: var(--mono); font-size:0.78rem; font-weight:600; letter-spacing:0.02em;
+    padding:12px 16px; border-radius:999px; cursor:pointer; display:flex; align-items:center; gap:8px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25); transition:transform .15s ease, border-color .15s ease;
+  }
+  #share-fab:hover{ border-color: var(--orange); transform:translateY(-2px); }
+  #share-menu{
+    position:fixed; left:20px; bottom:78px; z-index:900;
+    background: var(--paper); border:1px solid var(--line); border-radius:12px;
+    box-shadow:0 12px 32px rgba(0,0,0,0.28); padding:10px; width:220px;
+    display:none; flex-direction:column; gap:2px;
+  }
+  #share-menu.open{ display:flex; }
+  #share-menu .share-title{
+    font-family: var(--mono); font-size:0.7rem; color: var(--ink-dim); text-transform:uppercase;
+    letter-spacing:0.05em; padding:6px 10px 8px;
+  }
+  .share-opt{
+    display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:8px;
+    font-family: var(--body); font-size:0.88rem; color: var(--ink); cursor:pointer; border:none;
+    background:none; width:100%; text-align:left;
+  }
+  .share-opt:hover{ background: var(--paper-dim); }
+  .share-opt .ic{ width:20px; text-align:center; font-size:1rem; flex-shrink:0; }
+  .share-opt.copied{ color: var(--orange-deep); font-weight:600; }
+
+  /* ---------- chatbot widget ---------- */
+  #bot-fab{
+    position:fixed; right:20px; bottom:20px; z-index:900;
+    background: var(--orange); color:#fff; border:none;
+    font-family: var(--mono); font-size:0.78rem; font-weight:700; letter-spacing:0.02em;
+    padding:14px 18px; border-radius:999px; cursor:pointer; display:flex; align-items:center; gap:8px;
+    box-shadow:0 6px 20px rgba(224,78,0,0.35); transition:transform .15s ease;
+  }
+  #bot-fab:hover{ transform:translateY(-2px); }
+  #bot-fab .dot{ width:8px; height:8px; border-radius:50%; background:#fff; opacity:0.85; }
+  #bot-panel{
+    position:fixed; right:20px; bottom:20px; z-index:950;
+    width:340px; max-width:calc(100vw - 32px); height:480px; max-height:calc(100vh - 100px);
+    background: var(--paper); border-radius:14px; box-shadow:0 20px 50px rgba(0,0,0,0.35);
+    display:none; flex-direction:column; overflow:hidden; border:1px solid var(--line);
+  }
+  #bot-panel.open{ display:flex; }
+  #bot-head{
+    background: var(--bg); color:#F4F2EC; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;
+  }
+  #bot-head .who{ font-family: var(--display); font-weight:700; font-size:0.95rem; display:flex; align-items:center; gap:8px; }
+  #bot-head .who .dot{ width:8px; height:8px; border-radius:50%; background:#3ED598; }
+  #bot-close{ background:none; border:none; color:#B9B7B0; font-size:1.2rem; cursor:pointer; line-height:1; padding:2px 6px; }
+  #bot-close:hover{ color:#fff; }
+  #bot-body{
+    flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;
+    background: var(--paper-dim);
+  }
+  .bot-msg{ display:flex; }
+  .bot-msg.user{ justify-content:flex-end; }
+  .bot-bubble{
+    max-width:82%; padding:9px 12px; border-radius:12px; font-size:0.86rem; line-height:1.45;
+  }
+  .bot-msg.bot .bot-bubble{ background:#fff; border:1px solid var(--line); border-bottom-left-radius:3px; color: var(--ink); }
+  .bot-msg.user .bot-bubble{ background: var(--orange); color:#fff; border-bottom-right-radius:3px; }
+  .bot-quick{ display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
+  .bot-quick-btn{
+    font-family: var(--mono); font-size:0.72rem; padding:6px 10px; border-radius:999px;
+    background:#fff; border:1px solid var(--line); color: var(--ink); cursor:pointer;
+  }
+  .bot-quick-btn:hover{ border-color: var(--orange); color: var(--orange-deep); }
+  .bot-cards{ display:flex; flex-direction:column; gap:8px; margin-top:2px; }
+  .bot-card{
+    display:flex; gap:10px; background:#fff; border:1px solid var(--line); border-radius:10px;
+    padding:8px; align-items:center; text-decoration:none; color:inherit;
+  }
+  .bot-card:hover{ border-color: var(--orange); }
+  .bot-card img{ width:44px; height:44px; object-fit:contain; border-radius:6px; background: var(--paper-dim); flex-shrink:0; }
+  .bot-card .bc-name{ font-size:0.8rem; font-weight:600; line-height:1.3; }
+  .bot-card .bc-price{ font-family: var(--mono); font-size:0.76rem; color: var(--orange-deep); margin-top:2px; }
+  #bot-input-row{
+    display:flex; gap:8px; padding:10px; border-top:1px solid var(--line); background:#fff;
+  }
+  #bot-input{
+    flex:1; border:1px solid var(--line); border-radius:999px; padding:9px 14px; font-size:0.86rem;
+    font-family: var(--body); outline:none; background: var(--paper-dim);
+  }
+  #bot-input:focus{ border-color: var(--orange); }
+  #bot-send{
+    background: var(--bg); color:#fff; border:none; border-radius:999px; padding:0 16px;
+    font-family: var(--mono); font-size:0.78rem; cursor:pointer;
+  }
+  #bot-send:hover{ background: var(--orange-deep); }
+  @media (max-width: 480px){
+    #share-fab span, #bot-fab span{ display:none; }
+    #share-fab, #bot-fab{ padding:14px; }
+    #bot-panel{ width:calc(100vw - 24px); right:12px; bottom:12px; height:min(70vh, 520px); }
+    #share-menu{ left:12px; width:calc(100vw - 24px); }
+  }
 </style>
 
-<!-- GearScout Analytics — self-hosted (Supabase) -->
+<!-- Microsoft Clarity — heatmaps + session recordings -->
 <script type="text/javascript">
-  const GS_SUPABASE_URL = "https://fqhiwnuhfsgxyvsxgbnl.supabase.co";
-  const GS_SUPABASE_KEY = "sb_publishable_nDDBNoPaaPjt9H-bPaIH2g_Fra2Vbo-";
-
-  function gsLogEvent(payload){
-    try {
-      fetch(GS_SUPABASE_URL + "/rest/v1/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": GS_SUPABASE_KEY,
-          "Authorization": "Bearer " + GS_SUPABASE_KEY
-        },
-        body: JSON.stringify(payload),
-        keepalive: true
-      }).catch(function(){});
-    } catch(e){}
-  }
-
-  function gsGetUtmSource(){
-    const params = new URLSearchParams(window.location.search);
-    return params.get("utm_source") || null;
-  }
-
-  // Log a page view once per page load
-  window.addEventListener("DOMContentLoaded", function(){
-    gsLogEvent({
-      event_type: "page_view",
-      utm_source: gsGetUtmSource(),
-      page_path: window.location.pathname,
-      referrer: document.referrer || null,
-      user_agent: navigator.userAgent
-    });
-  });
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "y3y4d2et8a");
 </script>
 
 
@@ -2805,6 +2876,33 @@
   </div>
 </footer>
 
+<!-- ---------- share widget ---------- -->
+<button id="share-fab" onclick="toggleShareMenu()" aria-label="Share GearScout">↗ <span>Share</span></button>
+<div id="share-menu" role="menu" aria-label="Share options">
+  <div class="share-title">Share GearScout</div>
+  <button class="share-opt" onclick="shareTo('x')"><span class="ic">𝕏</span> X (Twitter)</button>
+  <button class="share-opt" onclick="shareTo('facebook')"><span class="ic">📘</span> Facebook</button>
+  <button class="share-opt" onclick="shareTo('whatsapp')"><span class="ic">💬</span> WhatsApp</button>
+  <button class="share-opt" onclick="shareTo('reddit')"><span class="ic">👽</span> Reddit</button>
+  <button class="share-opt" onclick="shareTo('linkedin')"><span class="ic">💼</span> LinkedIn</button>
+  <button class="share-opt" onclick="shareTo('email')"><span class="ic">✉️</span> Email</button>
+  <button class="share-opt" id="copy-link-btn" onclick="shareTo('copy')"><span class="ic">🔗</span> Copy link</button>
+</div>
+
+<!-- ---------- chatbot widget ---------- -->
+<button id="bot-fab" onclick="toggleBot()" aria-label="Open Scout Bot chat"><span class="dot"></span> <span>Ask Scout</span></button>
+<div id="bot-panel" role="dialog" aria-label="Scout Bot chat">
+  <div id="bot-head">
+    <div class="who"><span class="dot"></span> Scout Bot</div>
+    <button id="bot-close" onclick="toggleBot()" aria-label="Close chat">✕</button>
+  </div>
+  <div id="bot-body"></div>
+  <div id="bot-input-row">
+    <input id="bot-input" type="text" placeholder="Ask about a product or category…" onkeydown="if(event.key==='Enter') botSend();">
+    <button id="bot-send" onclick="botSend()">Send</button>
+  </div>
+</div>
+
 <script>
   const catNames = {
     'streaming-tv': 'Streaming & TV',
@@ -3197,16 +3295,12 @@
       const card = e.target.closest('.card');
       if (card){
         recordView(card.id);
-        gsLogEvent({
-          event_type: 'amazon_click',
-          utm_source: gsGetUtmSource(),
-          page_path: window.location.pathname,
-          product_id: card.id,
-          product_category: card.dataset.category,
-          link_type: link.classList.contains('buy-btn') ? 'buy_button' : 'product_image',
-          referrer: document.referrer || null,
-          user_agent: navigator.userAgent
-        });
+        if (typeof clarity === 'function'){
+          clarity('event', 'amazon_click');
+          clarity('set', 'product_id', card.id);
+          clarity('set', 'product_category', card.dataset.category);
+          clarity('set', 'link_type', link.classList.contains('buy-btn') ? 'buy_button' : 'product_image');
+        }
       }
     });
   }
@@ -3217,7 +3311,404 @@
   updateFavoritesUI();
 </script>
 
+<script>
+  /* =========================================================
+     SHARE WIDGET
+  ========================================================= */
+  function toggleShareMenu(){
+    const menu = document.getElementById('share-menu');
+    menu.classList.toggle('open');
+    if (typeof clarity === 'function' && menu.classList.contains('open')) clarity('event', 'share_menu_open');
+  }
 
+  document.addEventListener('click', function(e){
+    const menu = document.getElementById('share-menu');
+    const fab = document.getElementById('share-fab');
+    if (!menu || !menu.classList.contains('open')) return;
+    if (!menu.contains(e.target) && e.target !== fab) menu.classList.remove('open');
+  });
+
+  function shareTo(dest){
+    const url = 'https://gearscout.tech/';
+    const title = "GearScout — Tech & Gadgets, Scouted";
+    const text = "Found some solid gear picks on GearScout — worth a look:";
+    let target = null;
+
+    if (typeof clarity === 'function'){
+      clarity('event', 'share_click');
+      clarity('set', 'share_channel', dest);
+    }
+
+    switch(dest){
+      case 'x':
+        target = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+        break;
+      case 'facebook':
+        target = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+        break;
+      case 'whatsapp':
+        target = 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url);
+        break;
+      case 'reddit':
+        target = 'https://www.reddit.com/submit?url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(title);
+        break;
+      case 'linkedin':
+        target = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url);
+        break;
+      case 'email':
+        target = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(text + ' ' + url);
+        break;
+      case 'copy':
+        navigator.clipboard.writeText(url).then(function(){
+          const btn = document.getElementById('copy-link-btn');
+          const original = btn.innerHTML;
+          btn.classList.add('copied');
+          btn.innerHTML = '<span class="ic">✓</span> Link copied!';
+          setTimeout(function(){ btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
+        });
+        return;
+    }
+    if (target) window.open(target, '_blank', 'noopener,width=600,height=500');
+    document.getElementById('share-menu').classList.remove('open');
+  }
+
+  // Native share sheet on mobile if available — long-press-free convenience,
+  // still falls back to the menu above for desktop / unsupported browsers.
+  (function setupNativeShareFallback(){
+    const fab = document.getElementById('share-fab');
+    if (!fab || !navigator.share) return;
+    fab.addEventListener('click', function(e){
+      e.stopImmediatePropagation();
+      navigator.share({
+        title: "GearScout — Tech & Gadgets, Scouted",
+        text: "Found some solid gear picks on GearScout:",
+        url: 'https://gearscout.tech/'
+      }).catch(function(){ /* user cancelled — no-op */ });
+    }, true);
+  })();
+
+  /* =========================================================
+     SCOUT BOT — rule-based product finder chat
+  ========================================================= */
+  const botCatEmoji = {
+    'streaming-tv': '📺', 'audio': '🎧', 'wearables': '⌚', 'smart-home': '🏠',
+    'computing': '💻', 'charging': '🔌', 'outdoor': '🏕️', 'cameras': '📷',
+    'wellness': '💆', 'kitchen': '🍽️', 'tools': '🔧', 'gaming': '🎮'
+  };
+
+  const botCatSynonyms = {
+    'streaming-tv': ['streaming','tv','television','stick','roku','fire stick'],
+    'audio': ['audio','headphone','headphones','earbud','earbuds','speaker','speakers','sound'],
+    'wearables': ['wearable','wearables','watch','smartwatch','glasses','fitness band','tracker'],
+    'smart-home': ['smart home','plug','plugs','security camera','camera security','doorbell','smart plug'],
+    'computing': ['computing','laptop','computer','hub','usb','monitor','keyboard','mouse'],
+    'charging': ['charging','charger','cable','power bank','magsafe','battery'],
+    'outdoor': ['outdoor','camping','hiking','lantern','tent','travel'],
+    'cameras': ['camera','cameras','photography','photo','lens','gopro'],
+    'wellness': ['wellness','health','massage','sleep','fitness'],
+    'kitchen': ['kitchen','dining','cooking','coffee','blender','air fryer'],
+    'tools': ['tools','tool','hardware','drill','repair'],
+    'gaming': ['gaming','game','games','controller','console']
+  };
+
+  let botOpened = false;
+
+  function toggleBot(){
+    const panel = document.getElementById('bot-panel');
+    const willOpen = !panel.classList.contains('open');
+    panel.classList.toggle('open', willOpen);
+    if (willOpen){
+      if (typeof clarity === 'function') clarity('event', 'scoutbot_open');
+      if (!botOpened){
+        botOpened = true;
+        botGreet();
+      }
+      setTimeout(function(){ document.getElementById('bot-input').focus(); }, 50);
+    }
+  }
+
+  function botScrollToBottom(){
+    const body = document.getElementById('bot-body');
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function botEscape(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function addBotMessage(sender, html){
+    const body = document.getElementById('bot-body');
+    const row = document.createElement('div');
+    row.className = 'bot-msg ' + sender;
+    row.innerHTML = '<div class="bot-bubble">' + html + '</div>';
+    body.appendChild(row);
+    botScrollToBottom();
+  }
+
+  function addBotQuickReplies(options){
+    const body = document.getElementById('bot-body');
+    const wrap = document.createElement('div');
+    wrap.className = 'bot-quick';
+    options.forEach(function(opt){
+      const btn = document.createElement('button');
+      btn.className = 'bot-quick-btn';
+      btn.textContent = opt.label;
+      btn.onclick = function(){
+        addBotMessage('user', botEscape(opt.label));
+        opt.action();
+      };
+      wrap.appendChild(btn);
+    });
+    body.appendChild(wrap);
+    botScrollToBottom();
+  }
+
+  function addBotCards(cards, closeAfterClick){
+    const body = document.getElementById('bot-body');
+    const wrap = document.createElement('div');
+    wrap.className = 'bot-cards';
+    cards.forEach(function(card){
+      const name = card.querySelector('h3').textContent;
+      const img = card.querySelector('img').src;
+      const priceEl = card.querySelector('.price');
+      const priceText = priceEl ? priceEl.textContent : '';
+      const a = document.createElement('a');
+      a.className = 'bot-card';
+      a.href = '#' + card.id;
+      a.innerHTML = '<img src="' + img + '" alt=""><div><div class="bc-name">' + botEscape(name) + '</div><div class="bc-price">' + botEscape(priceText) + '</div></div>';
+      a.addEventListener('click', function(){
+        if (typeof clarity === 'function'){
+          clarity('event', 'scoutbot_product_click');
+          clarity('set', 'product_id', card.id);
+        }
+        if (closeAfterClick) toggleBot();
+      });
+      wrap.appendChild(a);
+    });
+    body.appendChild(wrap);
+    botScrollToBottom();
+  }
+
+  function botGreet(){
+    addBotMessage('bot', "Hey — I'm Scout Bot. I can help you find gear from what's on the site. What are you after?");
+    addBotQuickReplies([
+      { label: '📂 Browse by category', action: botShowCategories },
+      { label: '🎁 Gift ideas', action: botGiftIdeas },
+      { label: '💸 Budget picks (under $30)', action: function(){ botBudgetPicks(30); } },
+      { label: '🆕 Just added', action: botJustAdded },
+      { label: '🎲 Surprise me', action: botSurprise }
+    ]);
+  }
+
+  function botShowCategories(){
+    addBotMessage('bot', 'Pick a category:');
+    const options = Object.keys(catNames).map(function(key){
+      return { label: botCatEmoji[key] + ' ' + catNames[key], action: function(){ botShowCategoryResults(key); } };
+    });
+    addBotQuickReplies(options);
+  }
+
+  function botShowCategoryResults(catKey){
+    const matches = getCards().filter(function(c){ return c.dataset.category === catKey; });
+    if (!matches.length){
+      addBotMessage('bot', "Nothing in " + catNames[catKey] + " yet — check back soon.");
+      return;
+    }
+    addBotMessage('bot', 'Here are a few ' + catNames[catKey] + ' picks:');
+    addBotCards(matches.slice(0, 4), true);
+    addBotQuickReplies([
+      { label: 'See all in this category', action: function(){ toggleBot(); filterByCategory(catKey); document.getElementById('picks').scrollIntoView({behavior:'smooth'}); } },
+      { label: '↩ Ask something else', action: botAskAgain }
+    ]);
+  }
+
+  function botGiftIdeas(){
+    const topPicks = getCards().filter(function(c){
+      const badge = c.querySelector('.badge');
+      return badge && badge.textContent.trim() === 'TOP PICK';
+    });
+    const pool = topPicks.length ? topPicks : getCards();
+    const shuffled = pool.slice().sort(function(){ return Math.random() - 0.5; });
+    addBotMessage('bot', "Here are a few crowd-pleasing picks people tend to gift well:");
+    addBotCards(shuffled.slice(0, 4), true);
+    addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+  }
+
+  function botBudgetPicks(max){
+    const matches = getCards().filter(function(c){
+      const p = getPriceValue(c);
+      return p !== null && p <= max;
+    }).sort(function(a,b){ return getPriceValue(a) - getPriceValue(b); });
+    if (!matches.length){
+      addBotMessage('bot', "Couldn't find anything under $" + max + " right now.");
+      return;
+    }
+    addBotMessage('bot', 'Solid picks under $' + max + ':');
+    addBotCards(matches.slice(0, 4), true);
+    addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+  }
+
+  function botJustAdded(){
+    const matches = getCards().slice().sort(function(a,b){ return Number(b.dataset.order) - Number(a.dataset.order); });
+    addBotMessage('bot', 'Freshest additions to the site:');
+    addBotCards(matches.slice(0, 4), true);
+    addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+  }
+
+  function botSurprise(){
+    const cards = getCards();
+    if (!cards.length) return;
+    const pick = cards[Math.floor(Math.random() * cards.length)];
+    addBotMessage('bot', "Here's a random one for you:");
+    addBotCards([pick], true);
+    addBotQuickReplies([
+      { label: '🎲 Another one', action: botSurprise },
+      { label: '↩ Ask something else', action: botAskAgain }
+    ]);
+  }
+
+  function botAskAgain(){
+    addBotMessage('bot', 'Sure — what next?');
+    addBotQuickReplies([
+      { label: '📂 Browse by category', action: botShowCategories },
+      { label: '🎁 Gift ideas', action: botGiftIdeas },
+      { label: '🎲 Surprise me', action: botSurprise }
+    ]);
+  }
+
+  function botDetectCategory(text){
+    for (const key in botCatSynonyms){
+      const words = botCatSynonyms[key];
+      for (let i = 0; i < words.length; i++){
+        if (text.indexOf(words[i]) !== -1) return key;
+      }
+    }
+    for (const key in catNames){
+      if (text.indexOf(key.replace('-', ' ')) !== -1 || text.indexOf(catNames[key].toLowerCase()) !== -1) return key;
+    }
+    return null;
+  }
+
+  function botDetectBudget(text){
+    const under = text.match(/(?:under|below|less than|<)\s*\$?\s*(\d+)/);
+    if (under) return { type: 'under', value: parseFloat(under[1]) };
+    const over = text.match(/(?:over|above|more than|>)\s*\$?\s*(\d+)/);
+    if (over) return { type: 'over', value: parseFloat(over[1]) };
+    if (/\bcheap|budget|affordable\b/.test(text)) return { type: 'under', value: 30 };
+    if (/\bpremium|expensive|high[- ]?end|splurge\b/.test(text)) return { type: 'over', value: 75 };
+    return null;
+  }
+
+  function botSearchProducts(text){
+    const words = text.split(/\s+/).filter(function(w){ return w.length > 2; });
+    const cards = getCards();
+    const scored = cards.map(function(card){
+      const name = card.dataset.name || '';
+      let score = 0;
+      words.forEach(function(w){ if (name.indexOf(w) !== -1) score++; });
+      return { card: card, score: score };
+    }).filter(function(x){ return x.score > 0; });
+    scored.sort(function(a,b){ return b.score - a.score; });
+    return scored.map(function(x){ return x.card; });
+  }
+
+  function botHandleFreeText(raw){
+    const text = raw.toLowerCase().trim();
+    if (!text) return;
+
+    if (/^(hi|hello|hey|yo|sup)\b/.test(text)){
+      addBotMessage('bot', "Hey there! Ask me about a category, a product, a budget, or say 'surprise me'.");
+      return;
+    }
+    if (/thank/.test(text)){
+      addBotMessage('bot', "Anytime! Anything else you're hunting for?");
+      addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+      return;
+    }
+    if (/surprise|random/.test(text)){
+      botSurprise();
+      return;
+    }
+    if (/gift|present/.test(text)){
+      botGiftIdeas();
+      return;
+    }
+    if (/new|just added|latest|trending/.test(text)){
+      botJustAdded();
+      return;
+    }
+
+    const category = botDetectCategory(text);
+    const budget = botDetectBudget(text);
+
+    if (category && budget){
+      let matches = getCards().filter(function(c){ return c.dataset.category === category; });
+      matches = matches.filter(function(c){
+        const p = getPriceValue(c);
+        if (p === null) return false;
+        return budget.type === 'under' ? p <= budget.value : p >= budget.value;
+      });
+      if (!matches.length){
+        addBotMessage('bot', "Nothing in " + catNames[category] + (budget.type === 'under' ? ' under $' + budget.value : ' over $' + budget.value) + " right now — want to see the full category instead?");
+        addBotQuickReplies([{ label: 'See all ' + catNames[category], action: function(){ botShowCategoryResults(category); } }]);
+        return;
+      }
+      addBotMessage('bot', catNames[category] + (budget.type === 'under' ? ' under $' + budget.value : ' over $' + budget.value) + ':');
+      addBotCards(matches.slice(0, 4), true);
+      addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+      return;
+    }
+
+    if (category){
+      botShowCategoryResults(category);
+      return;
+    }
+
+    if (budget){
+      if (budget.type === 'under') botBudgetPicks(budget.value);
+      else {
+        const matches = getCards().filter(function(c){
+          const p = getPriceValue(c);
+          return p !== null && p >= budget.value;
+        }).sort(function(a,b){ return getPriceValue(b) - getPriceValue(a); });
+        if (!matches.length){
+          addBotMessage('bot', "Nothing over $" + budget.value + " right now.");
+          return;
+        }
+        addBotMessage('bot', 'Picks over $' + budget.value + ':');
+        addBotCards(matches.slice(0, 4), true);
+        addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+      }
+      return;
+    }
+
+    const results = botSearchProducts(text);
+    if (results.length){
+      addBotMessage('bot', "Found a few that match:");
+      addBotCards(results.slice(0, 4), true);
+      addBotQuickReplies([{ label: '↩ Ask something else', action: botAskAgain }]);
+      return;
+    }
+
+    addBotMessage('bot', "I couldn't quite match that to anything on the site. Want to browse by category instead?");
+    addBotQuickReplies([
+      { label: '📂 Browse by category', action: botShowCategories },
+      { label: '🎲 Surprise me', action: botSurprise }
+    ]);
+  }
+
+  function botSend(){
+    const input = document.getElementById('bot-input');
+    const value = input.value.trim();
+    if (!value) return;
+    addBotMessage('user', botEscape(value));
+    input.value = '';
+    if (typeof clarity === 'function') clarity('event', 'scoutbot_message_sent');
+    setTimeout(function(){ botHandleFreeText(value); }, 250);
+  }
+</script>
 
 </body>
 </html>
