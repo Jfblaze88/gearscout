@@ -545,13 +545,41 @@
   }
 </style>
 
-<!-- Microsoft Clarity — heatmaps + session recordings -->
+<!-- GearScout Analytics — self-hosted (Supabase) -->
 <script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "y3y4d2et8a");
+  const GS_SUPABASE_URL = "https://fqhiwnuhfsgxyvsxgbnl.supabase.co";
+  const GS_SUPABASE_KEY = "sb_publishable_nDDBNoPaaPjt9H-bPaIH2g_Fra2Vbo-";
+
+  function gsLogEvent(payload){
+    try {
+      fetch(GS_SUPABASE_URL + "/rest/v1/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": GS_SUPABASE_KEY,
+          "Authorization": "Bearer " + GS_SUPABASE_KEY
+        },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
+  }
+
+  function gsGetUtmSource(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get("utm_source") || null;
+  }
+
+  // Log a page view once per page load
+  window.addEventListener("DOMContentLoaded", function(){
+    gsLogEvent({
+      event_type: "page_view",
+      utm_source: gsGetUtmSource(),
+      page_path: window.location.pathname,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent
+    });
+  });
 </script>
 
 
@@ -3169,12 +3197,16 @@
       const card = e.target.closest('.card');
       if (card){
         recordView(card.id);
-        if (typeof clarity === 'function'){
-          clarity('event', 'amazon_click');
-          clarity('set', 'product_id', card.id);
-          clarity('set', 'product_category', card.dataset.category);
-          clarity('set', 'link_type', link.classList.contains('buy-btn') ? 'buy_button' : 'product_image');
-        }
+        gsLogEvent({
+          event_type: 'amazon_click',
+          utm_source: gsGetUtmSource(),
+          page_path: window.location.pathname,
+          product_id: card.id,
+          product_category: card.dataset.category,
+          link_type: link.classList.contains('buy-btn') ? 'buy_button' : 'product_image',
+          referrer: document.referrer || null,
+          user_agent: navigator.userAgent
+        });
       }
     });
   }
