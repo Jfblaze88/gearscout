@@ -1697,11 +1697,11 @@
     <div class="quiz-box">
       <div class="quiz-head">
         <h3>Not sure where to start?</h3>
-        <p>Answer two quick questions and GearScout will point you at the right pick.</p>
+        <p>Pick a category and GearScout will point you at the right pick.</p>
       </div>
 
       <div class="quiz-step">
-        <span class="quiz-step-label">1. What are you shopping for?</span>
+        <span class="quiz-step-label">What are you shopping for?</span>
         <div class="quiz-btn-row" id="quiz-cat-row">
           <button class="quiz-btn" data-qcat="streaming-tv" onclick="quizSelectCategory('streaming-tv', this)">📺 Streaming &amp; TV</button>
           <button class="quiz-btn" data-qcat="audio" onclick="quizSelectCategory('audio', this)">🎧 Audio</button>
@@ -1715,16 +1715,6 @@
           <button class="quiz-btn" data-qcat="kitchen" onclick="quizSelectCategory('kitchen', this)">🍽️ Kitchen</button>
           <button class="quiz-btn" data-qcat="tools" onclick="quizSelectCategory('tools', this)">🔧 Tools</button>
           <button class="quiz-btn" data-qcat="gaming" onclick="quizSelectCategory('gaming', this)">🎮 Gaming</button>
-        </div>
-      </div>
-
-      <div class="quiz-step">
-        <span class="quiz-step-label">2. What's your budget?</span>
-        <div class="quiz-btn-row" id="quiz-budget-row">
-          <button class="quiz-btn" data-qbudget="under30" onclick="quizSelectBudget('under30', this)">Under $30</button>
-          <button class="quiz-btn" data-qbudget="30to75" onclick="quizSelectBudget('30to75', this)">$30 – $75</button>
-          <button class="quiz-btn" data-qbudget="over75" onclick="quizSelectBudget('over75', this)">$75+</button>
-          <button class="quiz-btn" data-qbudget="any" onclick="quizSelectBudget('any', this)">Any budget</button>
         </div>
       </div>
 
@@ -3021,7 +3011,6 @@
   }
 
   let quizCategory = null;
-  let quizBudget = null;
 
   function quizSelectCategory(cat, btnEl){
     quizCategory = cat;
@@ -3029,31 +3018,15 @@
     quizRender();
   }
 
-  function quizSelectBudget(budget, btnEl){
-    quizBudget = budget;
-    document.querySelectorAll('#quiz-budget-row .quiz-btn').forEach(b => b.classList.toggle('active', b === btnEl));
-    quizRender();
-  }
-
   function quizRender(){
     const resultsEl = document.getElementById('quiz-results');
-    if (!quizCategory || !quizBudget){
+    if (!quizCategory){
       resultsEl.innerHTML = '';
       return;
     }
     let matches = getCards().filter(c => c.dataset.category === quizCategory);
-    if (quizBudget !== 'any'){
-      matches = matches.filter(c => {
-        const price = getPriceValue(c);
-        if (price === null) return false;
-        if (quizBudget === 'under30') return price < 30;
-        if (quizBudget === '30to75') return price >= 30 && price <= 75;
-        if (quizBudget === 'over75') return price > 75;
-        return true;
-      });
-    }
     if (!matches.length){
-      resultsEl.innerHTML = '<p class="quiz-empty">Nothing in that exact combo yet — try a wider budget, or <a href="#" onclick="filterByCategory(\'' + quizCategory + '\'); document.getElementById(\'top\').scrollIntoView(); return false;">browse this category</a> directly.</p>';
+      resultsEl.innerHTML = '<p class="quiz-empty">Nothing in that category yet — check back soon.</p>';
       return;
     }
     const top3 = matches.slice(0, 3);
