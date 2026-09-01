@@ -18,6 +18,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://gearscout.tech/reviews/tech-gifts-under-30.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://gearscout.tech/privacy.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
