@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guides — GearScout</title>
+
+<link rel="icon" type="image/png" href="../icon.png">
+<link rel="apple-touch-icon" href="../icon.png">
+<link rel="canonical" href="https://gearscout.tech/reviews/">
+
+<meta name="description" content="GearScout buying guides — gear roundups grouped by what you're actually shopping for, with real prices and the specs that decide the purchase.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gearscout.tech/reviews/">
+<meta property="og:title" content="Guides — GearScout">
+<meta property="og:description" content="Gear roundups grouped by what you're actually shopping for, with real prices and the specs that decide the purchase.">
+<meta property="og:image" content="https://gearscout.tech/logo-full.png">
+<meta property="og:site_name" content="GearScout">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guides — GearScout">
+<meta name="twitter:description" content="Gear roundups grouped by what you're actually shopping for, with real prices and the specs that decide the purchase.">
+<meta name="twitter:image" content="https://gearscout.tech/logo-full.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0C; --bg-soft:#17181B; --paper:#FAF9F6; --paper-dim:#F0EEE8;
+    --ink:#17181B; --ink-dim:#5B5D63; --orange:#FF6A1A; --orange-deep:#E04E00;
+    --line:#E4E1D8; --line-dark:#2A2B2F; --radius:3px;
+    --display:'Space Grotesk',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body); background:var(--paper); color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:3px solid var(--orange); outline-offset:2px;}
+
+  header{background:var(--bg); color:#F4F2EC; position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line-dark);}
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; gap:24px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:700; font-size:1.25rem; letter-spacing:-0.02em; color:#fff;}
+  .logo .mark-img{width:32px; height:32px; object-fit:contain; flex-shrink:0;}
+  nav.links{display:flex; gap:28px; font-size:0.92rem; font-weight:500;}
+  nav.links a{color:#C9C7C0; transition:color .15s;}
+  nav.links a:hover{color:#fff;}
+  nav.links a.current{color:var(--orange);}
+  .nav-cta{font-family:var(--mono); font-size:0.78rem; font-weight:600; background:var(--orange); color:#141414; padding:9px 16px; border-radius:var(--radius); letter-spacing:0.03em;}
+
+  .hub-hero{background:var(--bg); color:#F4F2EC; padding:56px 0 64px;}
+  .crumb{font-family:var(--mono); font-size:0.75rem; color:#8C8A83; letter-spacing:0.04em; margin-bottom:20px;}
+  .crumb a{color:var(--orange);}
+  .hub-hero h1{font-family:var(--display); font-weight:700; font-size:clamp(2rem,4.5vw,3rem); line-height:1.08; letter-spacing:-0.02em; margin-bottom:18px;}
+  .hub-hero h1 em{font-style:normal; color:var(--orange);}
+  .hub-hero p{font-size:1.05rem; color:#B9B7B0; max-width:600px;}
+
+  .hub-body{padding:56px 0 72px;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:32px; gap:20px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:16px;}
+  .section-head h2{font-family:var(--display); font-weight:700; font-size:1.6rem; letter-spacing:-0.01em;}
+  .section-head .tag{font-family:var(--mono); font-size:0.78rem; color:var(--orange-deep); background:#FFF0E6; padding:5px 10px; border-radius:var(--radius); font-weight:600;}
+
+  .guide-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px,1fr)); gap:22px;}
+  .guide-card{
+    background:#fff; border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    display:flex; flex-direction:column; transition:box-shadow .2s, transform .2s;
+  }
+  .guide-card:hover{box-shadow:0 8px 20px rgba(20,20,20,0.09); transform:translateY(-2px);}
+  .guide-thumbs{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-bottom:1px solid var(--line);}
+  .guide-thumbs img{width:100%; aspect-ratio:1; object-fit:contain; background:#fff; padding:10px;}
+  .guide-body{padding:20px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .guide-cat{font-family:var(--mono); font-size:0.66rem; font-weight:600; color:var(--orange-deep); letter-spacing:0.05em; text-transform:uppercase;}
+  .guide-card h3{font-family:var(--display); font-weight:700; font-size:1.12rem; line-height:1.28;}
+  .guide-card p{font-size:0.88rem; line-height:1.55; color:var(--ink-dim);}
+  .guide-foot{margin-top:auto; padding-top:14px; border-top:1px dashed var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px;}
+  .guide-meta{font-family:var(--mono); font-size:0.7rem; color:var(--ink-dim);}
+  .guide-go{font-family:var(--body); font-weight:600; font-size:0.78rem; background:var(--ink); color:#fff; padding:8px 14px; border-radius:var(--radius); transition:background .15s;}
+  .guide-card:hover .guide-go{background:var(--orange-deep);}
+
+  .coming{margin-top:48px; background:var(--paper-dim); border:1px dashed var(--line); border-radius:6px; padding:28px 30px;}
+  .coming h3{font-family:var(--display); font-size:1.05rem; margin-bottom:8px;}
+  .coming p{font-size:0.9rem; color:var(--ink-dim); line-height:1.6; max-width:640px;}
+  .coming a{color:var(--orange-deep); font-weight:500; border-bottom:1px solid rgba(224,78,0,0.3);}
+
+  .disclosure{background:var(--bg-soft); color:#D8D6CF; padding:36px 0; border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);}
+  .disclosure .wrap{display:flex; gap:20px; align-items:flex-start;}
+  .disclosure .mark{font-family:var(--mono); font-size:0.72rem; color:var(--orange); border:1px solid rgba(255,106,26,0.4); padding:6px 10px; border-radius:var(--radius); flex-shrink:0; letter-spacing:0.04em;}
+  .disclosure p{font-size:0.86rem; line-height:1.6; color:#B9B7B0; max-width:760px;}
+
+  footer{background:var(--bg); color:#8C8A83; padding:40px 0 28px;}
+  .foot-bottom{display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; flex-wrap:wrap; gap:10px;}
+  .foot-logo{font-family:var(--display); font-weight:700; color:#F4F2EC; display:flex; align-items:center; gap:8px;}
+  .foot-links{display:flex; gap:18px;}
+  .foot-links a:hover{color:#F4F2EC;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .disclosure .wrap{flex-direction:column;}
+  }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+</style>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "y3y4d2et8a");
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":"GearScout Guides",
+  "description":"Gear roundups and buying guides grouped by what you're actually shopping for.",
+  "url":"https://gearscout.tech/reviews/",
+  "isPartOf":{"@type":"WebSite","name":"GearScout","url":"https://gearscout.tech/"},
+  "mainEntity":{
+    "@type":"ItemList",
+    "itemListElement":[
+      {
+        "@type":"ListItem",
+        "position":1,
+        "url":"https://gearscout.tech/reviews/camping-gadgets-under-60.html",
+        "name":"6 Camping Gadgets Under $60 That Earn Their Space"
+      }
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <a href="../index.html" class="logo"><img src="../icon.png" alt="" class="mark-img">GearScout</a>
+    <nav class="links">
+      <a href="../index.html#categories">Categories</a>
+      <a href="../index.html#picks">Scout's Picks</a>
+      <a href="../index.html#bundles">Bundles</a>
+      <a href="./" class="current">Guides</a>
+      <a href="../index.html#about">About</a>
+    </nav>
+    <a href="../index.html#picks" class="nav-cta">SEE TODAY'S PICKS</a>
+  </div>
+</header>
+
+<section class="hub-hero">
+  <div class="wrap">
+    <p class="crumb"><a href="../index.html">GearScout</a> &nbsp;/&nbsp; Guides</p>
+    <h1>Guides, grouped by what you're <em>actually shopping for</em></h1>
+    <p>The product grid is organised by category. These are organised by the situation — a camping trip, a desk setup, a budget. Real prices, and the specs that actually decide the purchase.</p>
+  </div>
+</section>
+
+<section class="hub-body">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>All Guides</h2>
+      <span class="tag">1 PUBLISHED</span>
+    </div>
+
+    <div class="guide-grid">
+
+      <!-- GUIDE CARD — duplicate this block for each new article -->
+      <a class="guide-card" href="camping-gadgets-under-60.html">
+        <div class="guide-thumbs">
+          <img src="https://m.media-amazon.com/images/I/71Q6XkzJHTL._AC_SL1500_.jpg" alt="" loading="lazy">
+          <img src="https://m.media-amazon.com/images/I/71wT4KMzMoL._AC_SL1500_.jpg" alt="" loading="lazy">
+          <img src="https://m.media-amazon.com/images/I/813Y1mvdYTL._AC_SL1500_.jpg" alt="" loading="lazy">
+        </div>
+        <div class="guide-body">
+          <span class="guide-cat">Outdoor &amp; Camping</span>
+          <h3>6 Camping Gadgets Under $60 That Earn Their Space</h3>
+          <p>Light, power, airflow, and bug control — the four things that decide whether a night in a tent is comfortable or just survivable.</p>
+          <div class="guide-foot">
+            <span class="guide-meta">6 picks · from $13.99</span>
+            <span class="guide-go">Read guide →</span>
+          </div>
+        </div>
+      </a>
+      <!-- /GUIDE CARD -->
+
+    </div>
+
+    <div class="coming">
+      <h3>More on the way</h3>
+      <p>Guides get added as categories fill out enough to be worth rounding up. In the meantime, the full catalogue lives on the <a href="../index.html#picks">Scout's Picks</a> grid, and the <a href="../index.html#bundles">Kits &amp; Bundles</a> section groups products into ready-made setups.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="disclosure">
+  <div class="wrap">
+    <span class="mark">DISCLOSURE</span>
+    <p>GearScout is a participant in the Amazon Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by linking to Amazon.com. As an Amazon Associate, GearScout earns from qualifying purchases at no extra cost to you. Product opinions and picks remain independently chosen.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span class="foot-logo"><img src="../icon.png" alt="" style="width:20px;height:20px;">GearScout</span>
+      <span class="foot-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">Disclosure</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </span>
+      <span>© 2026 GearScout. Prices and availability subject to change.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
