@@ -435,6 +435,36 @@
   .buy-btn:hover{background: var(--orange-deep);}
   .buy-btn svg{width:11px; height:11px;}
 
+  /* ---------- guides strip ---------- */
+  .guides-strip{background: var(--paper); border-bottom:1px solid var(--line); padding:26px 0;}
+  .guides-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; flex-wrap:wrap;}
+  .guides-all{font-family: var(--mono); font-size:0.74rem; font-weight:600; color: var(--orange-deep);}
+  .guides-all:hover{text-decoration:underline;}
+  .guides-row{display:grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap:16px;}
+  .guide-card{
+    display:flex; gap:0; flex-direction:column;
+    background:#fff; border:1px solid var(--line); border-left:3px solid var(--orange);
+    border-radius:6px; overflow:hidden;
+    transition: box-shadow .18s, transform .18s;
+  }
+  .guide-card:hover{box-shadow:0 8px 18px rgba(20,20,20,0.08); transform:translateY(-2px);}
+  .guide-thumbs{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-bottom:1px solid var(--line);}
+  .guide-thumbs img{width:100%; aspect-ratio:1.35; object-fit:contain; background:#fff; padding:8px;}
+  .guide-card-body{padding:16px 18px; display:flex; flex-direction:column; gap:7px;}
+  .guide-cat{font-family: var(--mono); font-size:0.62rem; font-weight:600; color: var(--orange-deep); letter-spacing:0.05em; text-transform:uppercase;}
+  .guide-card h3{font-family: var(--display); font-weight:700; font-size:1.02rem; line-height:1.28;}
+  .guide-card p{font-size:0.83rem; line-height:1.5; color: var(--ink-dim);}
+  .guide-go{font-family: var(--mono); font-size:0.72rem; font-weight:600; color: var(--ink); margin-top:4px;}
+  .guide-card:hover .guide-go{color: var(--orange-deep);}
+
+  /* ---------- featured-in line on product cards ---------- */
+  .featured-in{
+    display:block; font-family: var(--mono); font-size:0.58rem; line-height:1.35;
+    color: var(--ink-dim); border-top:1px dashed var(--line); padding-top:6px; margin-top:2px;
+  }
+  .featured-in strong{color: var(--orange-deep); font-weight:600;}
+  .featured-in:hover strong{text-decoration:underline;}
+
   /* ---------- disclosure ---------- */
   .disclosure{
     background: var(--bg-soft); color:#D8D6CF;
@@ -1591,6 +1621,7 @@
       <a href="#categories">Categories</a>
       <a href="#picks">Scout's Picks</a>
       <a href="#bundles">Bundles</a>
+      <a href="reviews/">Guides</a>
       <a href="#about">About</a>
       <a href="#picks" id="nav-favorites" onclick="showFavoritesOnly(); return true;">♥ My Picks<span id="fav-count" class="fav-count"></span></a>
     </nav>
@@ -1679,6 +1710,33 @@
         <span class="wn-name">LISEN MagSafe Car Mount</span>
         <span class="wn-price">$32.99</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDES STRIP — add a new <a class="guide-card"> block here for each new article -->
+<section class="guides-strip" id="guides">
+  <div class="wrap">
+    <div class="guides-head">
+      <span class="whats-new-label">✦ Guides</span>
+      <a href="reviews/" class="guides-all">View all guides →</a>
+    </div>
+    <div class="guides-row">
+
+      <a href="reviews/camping-gadgets-under-60.html" class="guide-card">
+        <div class="guide-thumbs">
+          <img src="https://m.media-amazon.com/images/I/71Q6XkzJHTL._AC_SL1500_.jpg" alt="" loading="lazy">
+          <img src="https://m.media-amazon.com/images/I/71wT4KMzMoL._AC_SL1500_.jpg" alt="" loading="lazy">
+          <img src="https://m.media-amazon.com/images/I/813Y1mvdYTL._AC_SL1500_.jpg" alt="" loading="lazy">
+        </div>
+        <div class="guide-card-body">
+          <span class="guide-cat">Outdoor &amp; Camping</span>
+          <h3>6 Camping Gadgets Under $60 That Earn Their Space</h3>
+          <p>Light, power, airflow, and bug control — the four things that decide whether a night in a tent is comfortable or just survivable.</p>
+          <span class="guide-go">Read guide →</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -1895,6 +1953,7 @@
             <span class="spec-pill">LIGHT: LED LANTERN</span>
             <span class="spec-pill">CORDLESS: YES</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$25.63</div>
             <a href="https://amzn.to/45haNNl" class="buy-btn">View on Amazon</a>
@@ -1967,6 +2026,7 @@
             <span class="spec-pill">MOUNT: CLIP HOOK</span>
             <span class="spec-pill">POWER: BATTERY</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$13.99</div>
             <a href="https://amzn.to/4g5bQ8b" class="buy-btn">View on Amazon</a>
@@ -1985,6 +2045,7 @@
             <span class="spec-pill">MODES: 6</span>
             <span class="spec-pill">BATTERY: 4000mAh</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$22.99</div>
             <a href="https://amzn.to/4xo4gfO" class="buy-btn">View on Amazon</a>
@@ -2003,6 +2064,7 @@
             <span class="spec-pill">BATTERY: 5000mAh</span>
             <span class="spec-pill">TYPE: DIGITAL</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$59.98</div>
             <a href="https://amzn.to/4wNMcMp" class="buy-btn">View on Amazon</a>
@@ -2201,6 +2263,7 @@
             <span class="spec-pill">OUTPUT: 30W</span>
             <span class="spec-pill">CABLE: BUILT-IN</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$27.99</div>
             <a href="https://amzn.to/4q48BCg" class="buy-btn">View on Amazon</a>
@@ -2327,6 +2390,7 @@
             <span class="spec-pill">PLUG: 3-PRONG</span>
             <span class="spec-pill">USE: INDOOR/OUTDOOR</span>
           </div>
+          <a href="reviews/camping-gadgets-under-60.html" class="featured-in">Featured in: <strong>6 Camping Gadgets Under $60</strong></a>
           <div class="card-foot">
             <div class="price">$59.99</div>
             <a href="https://amzn.to/4xr82Fb" class="buy-btn">View on Amazon</a>
@@ -2846,6 +2910,7 @@
         <h4>SITE</h4>
         <ul>
           <li><a href="#picks">Scout's Picks</a></li>
+          <li><a href="reviews/">Guides</a></li>
           <li><a href="#about">Disclosure</a></li>
           <li><a href="mailto:gearscout88@gmail.com">Contact</a></li>
         </ul>
